@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostController@index');
+Route::get('/posts/create', 'PostController@create');
+Route::get('/posts/{post}','PostController@show');
+Route::get('/posts/{post}/edit','PostController@edit');
+
+Route::get('/profiles/create','ProfileController@create');
+Route::get('/profiles/{profile}','ProfileController@show');
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::post('/posts/store', 'PostController@store');
+Route::put('/posts/{post}/update','PostController@update');
+Route::delete('/posts/{post}/delete','PostController@destroy');
+
+
