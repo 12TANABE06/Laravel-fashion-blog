@@ -22,7 +22,7 @@
                 <input type="submit" onclick="return delet()" value="削除"/>
             </form>
         <div class="user_name">
-                    <a href="/posts/{{$post->id}}"><h3>{{$post->user->name}}</h3></a>
+                    <a href="/profiles/{{$post->user->id}}"><h3>{{$post->user->name}}</h3></a>
         </div>
         <div class="post">
             <div class="photo">
@@ -30,7 +30,12 @@
                 
                     <img src="{{$image_path}}">     
                 @endforeach
-            </di>    
+            </di>
+            <div class="tag">
+                @foreach($post->tags as $tag)
+                    <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
+                @endforeach
+            </div>
             <div class="body">
                 <h3>{{$post->body}}</p>
             </div>

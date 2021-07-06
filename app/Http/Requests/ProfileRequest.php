@@ -13,7 +13,7 @@ class ProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
          return [
-            'profile.image_path' => 'required|file|mimes:jpeg,png,jpg,bmb|max:2048',
+            'profile.image_path' => 'file|mimes:jpeg,png,jpg,bmb|max:2048',
             'profile.body' => 'max:400',
         ];
     }

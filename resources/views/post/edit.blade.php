@@ -21,9 +21,25 @@
                 </div>
             @endforeach
         </div>
+        <div class="tag" style="display:inline">
+            @foreach($post->tags as $tag)
+            <form action='/tags/{{$tag->id}}/delete' method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('DELETE')
+                    <span class="badge badge-pill badge-info">{{$tag->name}}</span>
+                    <input type="submit"value="削除"/>
+            </form>
+            @endforeach
+        </div>
         <form action='/posts/{{$post->id}}/update' method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')    
+            @method('PUT')
+            <div class="tag">
+                <label>
+                    タグの追加
+                    <input type="text" name="tags" placeholder="タグ" value="{{$text}}">
+                </label>
+            </div>
             <div class="body">
                 <h2>コメント</h2>
                 <textarea type="text" name="post[body]">{{$post->body}}</textarea>　

@@ -14,9 +14,9 @@
        
      </head>
      <body>
-        <form action='/posts/store' method="POST" enctype="multipart/form-data">
+        <form action='/profiles/store' method="POST" enctype="multipart/form-data">
             @csrf
-            <label>画像ファイル</label>
+            <label>プロフィール画像</label>
             <div class="photo" style="display:inline">
                 <input type='file' name="profile[image_path]" placeholder="ファイル"/>
                  <p class="files_error" style="color:red">{{$errors->first('profile.image_path')}}</p>

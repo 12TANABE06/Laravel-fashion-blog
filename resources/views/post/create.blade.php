@@ -12,19 +12,30 @@
         <link href="index.css" rel="stylesheet" type="text/css">
 
        
-     </head>
-     <body>
+    </head>
+    <body>
+        <h1>新規投稿作成</h1>
         <form action='/posts/store' method="POST" enctype="multipart/form-data">
             @csrf
-             <label>画像ファイル</label>
-            <div class="photo" style="display:inline">
-                <input type='file' name="files[][photo]" multiple  placeholder="ファイル" required/>
-                 <p class="files_error" style="color:red">{{$errors->first('files.*.photo')}}</p>
+            <div class="photo">
+                <label>
+                     画像ファイル
+                     <input type='file' name="files[][photo]" multiple  placeholder="ファイル" required/>
+                     <p class="files_error" style="color:red">{{$errors->first('files.*.photo')}}</p>
+                </label>
+            </div>
+            <div class="tag">
+                <label>
+                    タグ
+                    <input type="text" name="tags" placeholder="タグ" value={{old('tags')}}>
+                </label>
             </div>
             <div class="body">
-                <h2>コメント</h2>
-                <textarea type="text" name="post[body]"  placeholder="コメント">{{old("post.body")}}</textarea>　
-                <p class="body_error" style="color:red">{{$errors->first('post.body')}}</p>
+                <label>
+                    コメント
+                    <textarea type="text" name="post[body]"  placeholder="コメント">{{old("post.body")}}</textarea>　
+                    <p class="body_error" style="color:red">{{$errors->first('post.body')}}</p>
+                </label>
             </div>
             <input type="submit" value='保存'>
         </form>
