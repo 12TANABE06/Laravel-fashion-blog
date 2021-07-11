@@ -6,6 +6,8 @@ use App\Profile;
 
 use App\Post;
 
+use App\User;
+
 use App\Http\Requests\ProfileRequest;
 
 use Illuminate\Support\Facades\Storage;
@@ -16,8 +18,9 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-     public function show($user_id,Post $post)
-    {
+     public function show($user_id)
+     {
+        $post = new Post;
         $profile = Profile::where('user_id',$user_id)->first();
         $post = Post::where('user_id',$user_id)->paginate(5);
         return view('profile.show')->with([
@@ -25,6 +28,16 @@ class ProfileController extends Controller
             'posts'=>$post]);
     }
     
+    public function mypage_show($user_id)
+    {
+        
+        $post = new Post;
+        $profile = Profile::where('user_id',$user_id)->first();
+        $post = Post::where('user_id',$user_id)->paginate(5);
+        return view('profile.mypage')->with([
+            'profile'=>$profile,
+            'posts'=>$post]);
+    }
      public function create()
     {
         return view('profile.create');

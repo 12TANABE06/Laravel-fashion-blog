@@ -13,7 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/posts/{post}/likes','LikeController@store');
+/*Route::group(['middleware' => ['auth']], function () {
+    //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+    Route::post('/likes','LikeController@store');
+});*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

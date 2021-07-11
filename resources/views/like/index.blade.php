@@ -13,39 +13,11 @@
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <link href="css/index.css" rel="stylesheet" type="text/css">
         
-       
-
-       
      </head>
      <body>
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
-        @if(Auth::check())
-            <div class="mypage">
-                <a href='/profiles/{{Auth::id()}}/mypage'>マイページ</a>
-            </div>
-        @endif
-        <div class="create">
-            <a href='/posts/create'>新規投稿作成</a>
-        </div>
-        <form action="/posts/search" method="GET">
-            @csrf
-            <div class="title">
-                <h2>検索</h2>
-                <p>
-                    <select name="select">
-                         <option value="name">ユーザー名</option>
-                        <option value="tag">タグ</option>
-                        <option value="body">本文</option>
-                    </select>
-                </p>
-                <input type="text" name="input" placeholder="タイトル"/>
-            </div>
-            <div class="button">
-                <input type="submit" value="検索">
-            </div>
-        </form>
         <div class="posts">
             @foreach($posts as $post)
                 <div class="user_name">

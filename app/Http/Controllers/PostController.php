@@ -30,8 +30,9 @@ class PostController extends Controller
     public function index(Post $post)
     {
         $like = new Like;
-      
-        return view('post.index')->with(['like_model'=>$like,'posts'=>$post->getPaginateLimit()]);
+        $post = Post::withCount('like')->orderBy('updated_at', 'DESC')->paginate(5);
+        
+        return view('post.index')->with(['like_model'=>$like,'posts'=>$post]);
     }
 
     /**

@@ -21,9 +21,10 @@ Route::get('/posts/{post}/edit','PostController@edit');
 
 Route::get('/profiles/create','ProfileController@create');
 Route::get('/profiles/{profile}','ProfileController@show');
+Route::get('/profiles/{profile}/mypage','ProfileController@mypage_show');
 Route::get('/profiles/{profile}/edit','ProfileController@edit');
 
-Route::get('/', 'PostController@index');
+Route::get('/likes/{like}', 'LikeController@index');
 
 Route::get('/comments/', 'CommentController@index');
 
@@ -43,4 +44,6 @@ Route::delete('/posts/{post}/delete','PostController@destroy');
 Route::delete('/profiles/{profile}/delete','ProfileController@destroy');
 Route::delete('/tags/{tag}/delete','TagController@destroy');
 
+
+Route::post('/likes/','LikeController@store');
 

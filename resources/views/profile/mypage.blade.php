@@ -16,21 +16,28 @@
     <body>
          <div class="back"><a href="/">戻る</a></div>
         @if($profile==Null)
-           
-            @foreach($posts as $post)
-                <div class="photo" style="display:inline">
-                    @foreach($post->post_photos->pluck("image_path") as $image_path)
-                        <a href="/posts/{{$post->id}}"><img src="{{$image_path}}"></a>  
-                    @endforeach
-                </div>    
-                <div class="body">
-                    <h3>{{$post->body}}</p>
-                </div>    
-            @endforeach
-        </div>
+            <h1>プロフィールが作成されていません</h1>
+            <a href='/profiles/create'><h2>[プロフィール作成]</h2></a>
+            <a href='/likes/{{Auth::id()}}'>「いいねした投稿」</a>
+            <div class="posts">
+                <a href="/posts/create"><h2>[新規投稿作成]</h2></a>
+                @foreach($posts as $post)
+                    <div class="photo" style="display:inline">
+                        @foreach($post->post_photos->pluck("image_path") as $image_path)
+                            <a href="/posts/{{$post->id}}"><img src="{{$image_path}}"></a>  
+                        @endforeach
+                    </div>    
+                    <div class="body">
+                        <h3>{{$post->body}}</p>
+                    </div>    
+                @endforeach
+            </div>
         @else
             @if($profile->image_path!=null)
                 <div class="setting" style="display:inline">
+                    <div class="update">
+                        <a href='/profiles/{{$profile->id}}/edit'>プロフィールの編集</a>
+                    </div>
                     <div class="user_name">
                         <h3>{{$profile->user->name}}</h3>
                     </div>
@@ -44,7 +51,8 @@
                             <h3>{{$profile->body}}</p>
                         </div>
                     </div>
-                </div>    
+                </div>
+                <a href='/likes/{{Auth::id()}}'>「いいねした投稿」</a>
                 <div class="posts">
                     @foreach($posts as $post)
                         <div class="photo" style="display:inline">
@@ -59,6 +67,9 @@
                 </div>
             @else
                 <div class="setting" style="display:inline">
+                    <div class="update">
+                        <a href='/profiles/{{$profile->id}}/edit'>プロフィールの編集</a>
+                    </div>
                     <div class="user_name">
                         <h3>{{$profile->user->name}}</h3>
                     </div>
@@ -71,7 +82,8 @@
                             <h3>{{$profile->body}}</p>
                         </div>
                     </div>
-                </div>    
+                </div>
+                <a href='/likes/{{Auth::id()}}'>「いいねした投稿」</a>
                 <div class="posts">
                     @foreach($posts as $post)
                         <div class="photo" style="display:inline">
