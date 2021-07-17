@@ -18,6 +18,7 @@
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
+        <a href='/profiles/{{Auth::id()}}/mypage'>戻る</a>
         <div class="posts">
             @foreach($posts as $post)
                 <div class="user_name">
@@ -41,12 +42,12 @@
                         @if($like_model->like_exist(Auth::user()->id,$post->id))
                             <p class="favorite-marke">
                                 <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
-                                <span class="likesCount">{{$post->like_count}}</span>
+                                <span class="likesCount">{{$post->likes->count()}}</span>
                             </p>
                         @else
                             <p class="favorite-marke">
                                 <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
-                                <span class="likesCount">{{$post->like_count}}</span>
+                                <span class="likesCount">{{$post->likes->count()}}</span>
                             </p>
                         @endif​
                     @endif

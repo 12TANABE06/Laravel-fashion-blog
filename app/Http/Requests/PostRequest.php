@@ -19,12 +19,20 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        
-       
         return [
             'files.*.photo' => 'required|file|mimes:jpeg,png,jpg,bmb|max:2048',
             'files' => 'max:2',
             'post.body' => 'max:400',
         ];
     }
+    
+    public function messages(){
+  return  [
+    'files.*.photo.required' => '画像を選択してください',
+    'files.*.photo.mimes' => '拡張子はjpeg,png,jpg,bmbのみです',
+    'files.max' => '選択可能なファイルは2つ目までです',
+    'post.body.max' => '最大400文字までです',
+  ];
+}
+    
 }

@@ -8,15 +8,17 @@
 
         <title>FashionBlog</title>
 
-        <!-- Fonts -->
-        <link href="index.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="{{ mix('/js/like.js') }}"></script>
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet" type="text/css">
 
        
     </head>
     <body>
          <div class="back"><a href="/">戻る</a></div>
         @if($profile==Null)
-           
+            <h1>{{$user->name}}のページ</h1>
             @foreach($posts as $post)
                 <div class="photo" style="display:inline">
                     @foreach($post->post_photos->pluck("image_path") as $image_path)
@@ -25,7 +27,27 @@
                 </div>    
                 <div class="body">
                     <h3>{{$post->body}}</p>
-                </div>    
+                </div> 
+                <div id="like">
+                    @if(Auth::check())
+                        @if($like_model->like_exist(Auth::user()->id,$post->id))
+                            <p class="favorite-marke">
+                                <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
+                                <span class="likesCount">{{$post->likes->count()}}</span>
+                            </p>
+                        @else
+                            <p class="favorite-marke">
+                                <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                <span class="likesCount">{{$post->likes->count()}}</span>
+                            </p>
+                        @endif​
+                    @else
+                        <p class="favorite-marke">
+                            <i class="fas fa-heart">いいね</i>
+                            <span class="likesCount">{{$post->likes->count()}}</span>
+                        </p>
+                    @endif
+                </div>
             @endforeach
         </div>
         @else
@@ -46,6 +68,7 @@
                     </div>
                 </div>    
                 <div class="posts">
+                    <h2>投稿一覧</h2>
                     @foreach($posts as $post)
                         <div class="photo" style="display:inline">
                             @foreach($post->post_photos->pluck("image_path") as $image_path)
@@ -54,7 +77,27 @@
                         </div>    
                         <div class="body">
                             <h3>{{$post->body}}</p>
-                        </div>    
+                        </div>
+                        <div id="like">
+                            @if(Auth::check())
+                                @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                    <p class="favorite-marke">
+                                        <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
+                                        <span class="likesCount">{{$post->likes->count()}}</span>
+                                    </p>
+                                @else
+                                    <p class="favorite-marke">
+                                        <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                        <span class="likesCount">{{$post->likes->count()}}</span>
+                                    </p>
+                                @endif​
+                            @else
+                                <p class="favorite-marke">
+                                    <i class="fas fa-heart">いいね</i>
+                                    <span class="likesCount">{{$post->likes->count()}}</span>
+                                </p>
+                            @endif
+                        </div>
                     @endforeach
                 </div>
             @else
@@ -73,6 +116,7 @@
                     </div>
                 </div>    
                 <div class="posts">
+                    <h2>投稿一覧</h2>
                     @foreach($posts as $post)
                         <div class="photo" style="display:inline">
                             @foreach($post->post_photos->pluck("image_path") as $image_path)
@@ -81,7 +125,27 @@
                         </div>    
                         <div class="body">
                             <h3>{{$post->body}}</p>
-                        </div>    
+                        </div>
+                        <div id="like">
+                            @if(Auth::check())
+                                @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                    <p class="favorite-marke">
+                                        <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
+                                        <span class="likesCount">{{$post->likes->count()}}</span>
+                                    </p>
+                                @else
+                                    <p class="favorite-marke">
+                                        <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                        <span class="likesCount">{{$post->likes->count()}}</span>
+                                    </p>
+                                @endif​
+                            @else
+                                <p class="favorite-marke">
+                                    <i class="fas fa-heart">いいね</i>
+                                    <span class="likesCount">{{$post->likes->count()}}</span>
+                                </p>
+                            @endif
+                        </div>
                     @endforeach
                 </div> 
             @endif    

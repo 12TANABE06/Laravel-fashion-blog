@@ -14,15 +14,17 @@
 
 Route::get('/', 'PostController@index');
 Route::get('/posts/search', 'PostController@search');
-Route::get('/posts/create', 'PostController@create');
+Route::get('/posts/create', 'PostController@create')->middleware('auth');
 Route::get('/posts/{post}','PostController@show');
 Route::get('/posts/{post}/edit','PostController@edit');
 
 
 Route::get('/profiles/create','ProfileController@create');
+Route::get('/profiles/mypage','ProfileController@myshow')->middleware('auth');
 Route::get('/profiles/{profile}','ProfileController@show');
-Route::get('/profiles/{profile}/mypage','ProfileController@mypage_show');
 Route::get('/profiles/{profile}/edit','ProfileController@edit');
+
+
 
 Route::get('/likes/{like}', 'LikeController@index');
 
@@ -45,5 +47,5 @@ Route::delete('/profiles/{profile}/delete','ProfileController@destroy');
 Route::delete('/tags/{tag}/delete','TagController@destroy');
 
 
-Route::post('/likes/','LikeController@store');
+Route::post('/likes/','LikeController@store')->middleware('auth');
 

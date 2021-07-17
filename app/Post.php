@@ -31,9 +31,9 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Tag');
     }
-     public function like()
+     public function likes()
     {
-        return $this->hasMany('App\Like',"post_id");
+        return $this->belongsToMany('App\User',"likes");
     }
 }
 

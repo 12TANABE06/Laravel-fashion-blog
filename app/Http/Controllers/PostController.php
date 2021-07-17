@@ -30,9 +30,8 @@ class PostController extends Controller
     public function index(Post $post)
     {
         $like = new Like;
-        $post = Post::withCount('like')->orderBy('updated_at', 'DESC')->paginate(5);
         
-        return view('post.index')->with(['like_model'=>$like,'posts'=>$post]);
+        return view('post.index')->with(['like_model'=>$like,'posts'=>$post->getPaginateLimit()]);
     }
 
     /**
@@ -90,7 +89,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-         return view('post.show')->with(['post'=>$post]);//
+        $like = new Like;
+         return view('post.show')->with(['like_model'=>$like,'post'=>$post]);//
     }
 
     /**
@@ -158,58 +158,54 @@ class PostController extends Controller
     }
     public function search(Request $request,Post $post)
     {
-        
+        $like = new Like;
         if($request->select=="name"){
             $user = new User;
             $input = $request->input;
             $posts = Post::query()->whereHas('user', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
                 })->orderBy('updated_at', 'DESC')->paginate(5);
-            return view('post.search')->with(['posts'=> $posts]);
+            return view('post.search')->with(['like_model'=>$like,'posts'=> $posts]);
         }elseif($request->select=="tag"){
             $tag = new Tag;
             $input = $request->input;
             $posts = Post::query()->whereHas('tags', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
                 })->orderBy('updated_at', 'DESC')->paginate(5);
-            return view('post.search')->with(['posts'=> $posts]);
+            return view('post.search')->with(['like_model'=>$like,'posts'=> $posts]);
         }else{
             $input = $request->input;
             $query = Post::query();
             $search = $query->Where('body','LIKE',"%{$input}%")->orderBy('updated_at', 'DESC')->paginate(5);
-            return view('post.search')->with(['posts'=> $search]);
+            return view('post.search')->with(['like_model'=>$like,'posts'=> $search]);
             
         }
     }
-    public function like(Request $request)
-    {
-        $id = Auth::user()->id;
-        $post_id = $request->post_id;
-        $like = new Like;
-        $post = Post::findOrFail($post_id);
-
-        // 空でない（既にいいねしている）なら
-        if ($like->like_exist($id, $post_id)) {
-            //likesテーブルのレコードを削除
-            $like = Like::where('post_id', $post_id)->where('user_id', $id)->delete();
-        } else {
-            //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
-            $like = new Like;
-            $like->post_id = $request->post_id;
-            $like->user_id = Auth::user()->id;
-            $like->save();
-        }
-
-        //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
-        $postLikesCount = $post->loadCount('likes')->likes_count;
-
-        //一つの変数にajaxに渡す値をまとめる
-        //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
-        $json = [
-            'postLikesCount' => $postLikesCount,
-        ];
-        //下記の記述でajaxに引数の値を返す
-        return response()->json($json);
-    }
 }
-   
+
+/*@if(count($post->post_photos)==2)
+                    <div class="container"> 
+                        <div id="carouselExampleControls" class="carousel slide"　data-ride="false" data-warp="true" data-touch="false" data-interval="false" >
+                            <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <a href="/posts/{{$post->id}}"><img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}"></a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a href="/posts/{{$post->id}}"><img class="d-block w-100 card-img-top" alt="Second slide"src="{{$post->post_photos[1]->image_path}}"></a>
+                                    </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="botton" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">前に戻る</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="botton" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">次に進む</span>
+                            </a>
+                        </div>
+                    </div>
+                @else
+                    <div class="container"> 
+                        <a href="/posts/{{$post->id}}"><img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}"></a>
+                    </div>
+                @endif*/

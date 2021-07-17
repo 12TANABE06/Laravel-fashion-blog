@@ -11,21 +11,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         
        
 
        
      </head>
      <body>
+         
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
-        @if(Auth::check())
             <div class="mypage">
-                <a href='/profiles/{{Auth::id()}}/mypage'>マイページ</a>
+                <a href='profiles/mypage/'>マイページ</a>
             </div>
-        @endif
         <div class="create">
             <a href='/posts/create'>新規投稿作成</a>
         </div>
@@ -46,43 +45,56 @@
                 <input type="submit" value="検索">
             </div>
         </form>
+        
         <div class="posts">
+            <div class="container">
+                <div class="row">
             @foreach($posts as $post)
-                <div class="user_name">
-                    <a href="/profiles/{{$post->user->id}}"><h3>{{$post->user->name}}</h3></a>
-                </div>
-                <div class="photo" style="display:inline">
-                    @foreach($post->post_photos->pluck("image_path") as $image_path)
-                        <a href="/posts/{{$post->id}}"><img src="{{$image_path}}"></a>  
-                    @endforeach
-                </div>
-                <div class="tag">
-                    @foreach($post->tags as $tag)
-                        <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
-                    @endforeach
-                </div>
-                <div class="body">
-                    <h3>{{$post->body}}</p>
-                </div>
-                <div id="like">
-                    @if(Auth::check())
-                        @if($like_model->like_exist(Auth::user()->id,$post->id))
-                            <p class="favorite-marke">
-                                <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
-                                <span class="likesCount">{{$post->like_count}}</span>
-                            </p>
+            <div class="card" style="width:18rem">
+                @foreach($post->post_photos->pluck("image_path") as $image_path)
+                    <a href="/posts/{{$post->id}}"><img class="card-img-top"src="{{$image_path}}"alt="Card image cap"></a>  
+                @endforeach
+                <h5 class="card-title">{{$post->user->name}}</h5>
+                <div class="card-body">
+                    <div class="tag">
+                        @foreach($post->tags as $tag)
+                            <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
+                        @endforeach
+                    </div>
+                    <p class="card-text">{{$post->body}}</p>
+                    <div id="like">
+                        @if(Auth::check())
+                            @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                <p class="favorite-marke">
+                                    <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
+                                    <span class="likesCount">{{$post->likes->count()}}</span>
+                                </p>
+                            @else
+                                <p class="favorite-marke">
+                                    <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                    <span class="likesCount">{{$post->likes->count()}}</span>
+                                </p>
+                            @endif​
                         @else
                             <p class="favorite-marke">
-                                <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
-                                <span class="likesCount">{{$post->like_count}}</span>
+                                <i class="fas fa-heart">いいね</i>
+                                <span class="likesCount">{{$post->likes->count()}}</span>
                             </p>
-                        @endif​
-                    @endif
+                        @endif
+                    </div>
+                    <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
                 </div>
+                    
+            </div>
             @endforeach
+            </div>
+        </div>
+               
              <div class='paginate'>
                  {{$posts->links()}}
             </div>
+     
      </body>
+
 </html>
 @endsection

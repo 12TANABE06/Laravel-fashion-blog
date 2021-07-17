@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10979,10 +10979,10 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./resources/js/like.js":
-/*!******************************!*\
-  !*** ./resources/js/like.js ***!
-  \******************************/
+/***/ "./resources/js/jquery.js":
+/*!********************************!*\
+  !*** ./resources/js/jquery.js ***!
+  \********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10991,54 +10991,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
-  var like = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.js-like-toggle');
-  var likePostId;
-  like.on('click', function () {
-    var $this = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
-    likePostId = $this.data('postid');
-    console.log(like);
-    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
-      headers: {
-        'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_0___default()('meta[name="csrf-token"]').attr('content')
-      },
-      url: "/likes/",
-      //routeの記述
-      type: 'POST',
-      //受け取り方法の記述（GETもある）
-      data: {
-        'post_id': likePostId //コントローラーに渡すパラメーター
 
-      }
-    }) // Ajaxリクエストが成功した場合
-    .done(function (data) {
-      //lovedクラスを追加
-      $this.toggleClass('loved');
-      console.log(data.postLikesCount); //.likesCountの次の要素のhtmlを「data.postLikesCount」の値に書き換える
-
-      $this.next('.likesCount').html(data.postLikesCount);
-    }) // Ajaxリクエストが失敗した場合
-    .fail(function (data, xhr, err) {
-      //ここの処理はエラーが出た時にエラー内容をわかるようにしておく。
-      //とりあえず下記のように記述しておけばエラー内容が詳しくわかります。笑
-      console.log('エラー');
-      console.log(err);
-      console.log(xhr);
-    });
-    return false;
-  });
-});
+function multiCarousel() {
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()("#lg").is(":visible")) {
+    do {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner").children(".carousel-grid:lt(4)").wrapAll("<div class=\"carousel-item\"><div class=\"row\"></div></div>");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner .carousel-item:first").addClass("active");
+    } while (jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner").children(".carousel-grid").length);
+  } else if (jquery__WEBPACK_IMPORTED_MODULE_0___default()("#md").is(":visible")) {
+    do {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner").children(".carousel-grid:lt(3)").wrapAll("<div class=\"carousel-item\"><div class=\"row\"></div></div>");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner .carousel-item:first").addClass("active");
+    } while (jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner").children(".carousel-grid").length);
+  } else {
+    do {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner").children(".carousel-grid:lt(1)").wrapAll("<div class=\"carousel-item\"><div class=\"row\"></div></div>");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner .carousel-item:first").addClass("active");
+    } while (jquery__WEBPACK_IMPORTED_MODULE_0___default()("#carouselPlus .carousel-inner").children(".carousel-grid").length);
+  }
+}
 
 /***/ }),
 
-/***/ 1:
-/*!************************************!*\
-  !*** multi ./resources/js/like.js ***!
-  \************************************/
+/***/ 2:
+/*!**************************************!*\
+  !*** multi ./resources/js/jquery.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/ec2-user/environment/blog/resources/js/like.js */"./resources/js/like.js");
+module.exports = __webpack_require__(/*! /home/ec2-user/environment/blog/resources/js/jquery.js */"./resources/js/jquery.js");
 
 
 /***/ })

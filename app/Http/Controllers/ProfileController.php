@@ -6,6 +6,8 @@ use App\Profile;
 
 use App\Post;
 
+use App\Like;
+
 use App\User;
 
 use App\Http\Requests\ProfileRequest;
@@ -19,24 +21,29 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
      public function show($user_id)
-     {
+    {
+        $like = new Like;
         $post = new Post;
+        $user = User::find($user_id);
         $profile = Profile::where('user_id',$user_id)->first();
         $post = Post::where('user_id',$user_id)->paginate(5);
         return view('profile.show')->with([
             'profile'=>$profile,
-            'posts'=>$post]);
+            'user'=>$user,
+            'posts'=>$post,
+            'like_model'=>$like]);
     }
     
-    public function mypage_show($user_id)
+    public function myshow()
     {
-        
+        $user_id=Auth::user()->id;
         $post = new Post;
         $profile = Profile::where('user_id',$user_id)->first();
         $post = Post::where('user_id',$user_id)->paginate(5);
         return view('profile.mypage')->with([
             'profile'=>$profile,
             'posts'=>$post]);
+        
     }
      public function create()
     {

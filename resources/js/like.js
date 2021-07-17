@@ -25,8 +25,7 @@ like.on('click', function () {
         .done(function (data) {
 //lovedクラスを追加
             $this.toggleClass('loved');
-            
-
+            console.log(data.postLikesCount)
 //.likesCountの次の要素のhtmlを「data.postLikesCount」の値に書き換える
             $this.next('.likesCount').html(data.postLikesCount); 
 

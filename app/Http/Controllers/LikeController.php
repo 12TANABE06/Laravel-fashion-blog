@@ -19,12 +19,7 @@ class LikeController extends Controller
         $like = new Like;
         $post = new Post;
         $user = User::where("id",$user_id)->first();
-        $like = Like::Where('user_id',$user_id)->get();
-        $post = $user->like->count();
-        dd($post);
-        $post = $post->withCount('like')->orderBy('updated_at', 'DESC')->paginate(5);
-        dd($post);
-      
+        $post = $user->likes()->orderBy('updated_at', 'DESC')->paginate(5);
         return view('like.index')->with(['like_model'=>$like,'posts'=>$post]);
     }
     public function store(Request $request)
@@ -42,7 +37,7 @@ class LikeController extends Controller
             $like->save();
         }
         $post = Post::find($post_id);
-        $postLikesCount = Post::withCount('like')->findOrFail($post_id)->like_count;
+        $postLikesCount = $post->likes->count();
         
             
         $json = [
