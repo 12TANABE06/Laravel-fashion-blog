@@ -31,7 +31,7 @@ class ProfileRequest extends FormRequest
     public function messages(){
         return  [
             'profile.image_path.mimes' => '拡張子はjpeg,png,jpg,bmbのみです',
-            'post.body.max' => '最大400文字までです',
+            'profile.body.max' => '最大400文字までです',
             ];
 }
 }

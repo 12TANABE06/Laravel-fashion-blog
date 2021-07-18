@@ -8,99 +8,136 @@
 
         <title>FashionBlog</title>
 
-        <!-- Fonts -->
-        <link href="index.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="{{ mix('/js/like.js') }}"></script>
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
        
     </head>
     <body>
-         <div class="back"><a href="/">戻る</a></div>
+        <a href="/" class="btn btn-primary">戻る</a></div>
         @if($profile==Null)
-            <h1>プロフィールが作成されていません</h1>
-            <a href='/profiles/create'><h2>[プロフィール作成]</h2></a>
-            <a href='/likes/{{Auth::id()}}'>「いいねした投稿」</a>
-            <div class="posts">
-                <a href="/posts/create"><h2>[新規投稿作成]</h2></a>
-                @foreach($posts as $post)
-                    <div class="photo" style="display:inline">
-                        @foreach($post->post_photos->pluck("image_path") as $image_path)
-                            <a href="/posts/{{$post->id}}"><img src="{{$image_path}}"></a>  
-                        @endforeach
-                    </div>    
-                    <div class="body">
-                        <h3>{{$post->body}}</p>
-                    </div>    
-                @endforeach
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">{{$user->name}}</div>
+                             <div class="card-body">
+                                <h1>プロフィールが作成されていません</h1>
+                                <a href='/profiles/create' class="btn btn-primary"><h2>プロフィール作成</h2></a>
+                                <a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                <a href="/posts/create" class="btn btn-primary"><h2>新規投稿作成</h2></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         @else
             @if($profile->image_path!=null)
-                <div class="setting" style="display:inline">
-                    <div class="update">
-                        <a href='/profiles/{{$profile->id}}/edit'>プロフィールの編集</a>
-                    </div>
-                    <div class="user_name">
-                        <h3>{{$profile->user->name}}</h3>
-                    </div>
-                    <div class="profile">
-                        <div class="photo">
-                            <label>プロフィール画像</label>
-                            <img src="{{$profile->image_path}}">     
-                        </div>    
-                        <div class="body">
-                            <label>自己紹介</label>
-                            <h3>{{$profile->body}}</p>
+                <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">{{$user->name}}</div>
+                                    <div class="photo">
+                                        <label>プロフィール画像</label>
+                                        <img class="d-block w-100 card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
+                                    </div>    
+                                    <div class="card-body">
+                                        <div class="body">
+                                            <p class="card-text">自己紹介<br>{{$profile->body}}</p>
+                                            <div class="update">
+                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-primary">プロフィールの編集</a>
+                                            </div>
+                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <a href='/likes/{{Auth::id()}}'>「いいねした投稿」</a>
-                <div class="posts">
-                    @foreach($posts as $post)
-                        <div class="photo" style="display:inline">
-                            @foreach($post->post_photos->pluck("image_path") as $image_path)
-                                <a href="/posts/{{$post->id}}"><img src="{{$image_path}}"></a>  
-                            @endforeach
-                        </div>    
-                        <div class="body">
-                            <h3>{{$post->body}}</p>
-                        </div>    
-                    @endforeach
-                </div>
             @else
-                <div class="setting" style="display:inline">
-                    <div class="update">
-                        <a href='/profiles/{{$profile->id}}/edit'>プロフィールの編集</a>
-                    </div>
-                    <div class="user_name">
-                        <h3>{{$profile->user->name}}</h3>
-                    </div>
-                    <div class="profile">
-                        <div class="photo">
-                            <label>プロフィール画像がありません</label>
-                        </div>    
-                        <div class="body">
-                            <label>自己紹介</label>
-                            <h3>{{$profile->body}}</p>
+                <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">{{$user->name}}</div>
+                                    <div class="photo">
+                                        <label>プロフィール画像がありません</label>
+                                    </div>    
+                                    <div class="card-body">
+                                        <div class="body">
+                                            <p class="card-text">自己紹介<br>{{$profile->body}}</p>
+                                            <div class="update">
+                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-primary">プロフィールの編集</a>
+                                            </div>
+                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <a href='/likes/{{Auth::id()}}'>「いいねした投稿」</a>
-                <div class="posts">
-                    @foreach($posts as $post)
-                        <div class="photo" style="display:inline">
-                            @foreach($post->post_photos->pluck("image_path") as $image_path)
-                                <a href="/posts/{{$post->id}}"><img src="{{$image_path}}"></a>  
-                            @endforeach
-                        </div>    
-                        <div class="body">
-                            <h3>{{$post->body}}</p>
-                        </div>    
-                    @endforeach
-                </div> 
-            @endif    
+            @endif
         @endif
-        <div class='paginate'>
-                 {{$posts->links()}}
+        <h2 style="text-align:center">投稿一覧</h2>
+        <div class='paginate d-flex justify-content-center'>
+            {{$posts->links()}}
+        </div>
+        <div class="posts">
+            <div class="container-fluid">
+                <div class="row">
+                    @foreach($posts as $post)
+                        <div class="card col-4 " style="width:18rem">
+                            @if(count($post->post_photos)==2)
+                                <a href="/posts/{{$post->id}}"><img class="card-img-top h-100" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"></a> 
+                                <div class="card-img-overlay">
+                                    <h4 class="card-title"><i class="fas fa-clone" style="text-righ"></i></h4>
+                                </div>
+                            @else
+                                <a href="/posts/{{$post->id}}"><img class="card-img-top h-100" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"></a>
+                            @endif
+                            <div class="card-header"><a href="/profiles/{{$post->user_id}}">{{$post->user->name}}</a></div>
+                            <div class="card-body">
+                            <div class="tag">
+                                @foreach($post->tags as $tag)
+                                    <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
+                                @endforeach
+                            </div>
+                            <p class="card-text">{{$post->body}}</p>
+                            <div id="like">
+                                @if(Auth::check())
+                                    @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                        <p class="favorite-marke">
+                                            <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
+                                            <span class="likesCount">{{$post->likes->count()}}</span>
+                                        </p>
+                                    @else
+                                        <p class="favorite-marke">
+                                            <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                            <span class="likesCount">{{$post->likes->count()}}</span>
+                                        </p>
+                                    @endif​
+                                @else
+                                    <p class="favorite-marke">
+                                        <i class="fas fa-heart">いいね</i>
+                                        <span class="likesCount">{{$post->likes->count()}}</span>
+                                    </p>
+                                @endif
+                            </div>
+                            <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
+                            <div class="card-footer">最終更新{{$post->updated_at}}</div>
+                            </div>
+                    
+                        </div>
+                    @endforeach
+                </div>
             </div>
+        </div>
+        <div class='paginate d-flex justify-content-center'>
+            {{$posts->links()}}
+        </div>        
+        
     </body>
 </html>
 @endsection

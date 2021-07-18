@@ -20,6 +20,8 @@ use App\Tag;
 
 use App\Like;
 
+use App\Policies\PostPolicy;
+
 class PostController extends Controller
 {
     /**
@@ -27,6 +29,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
     public function index(Post $post)
     {
         $like = new Like;
@@ -100,6 +103,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post){
+        $user=Auth::user();
+        $this->authorize('view', $post);
+    
         $value="";
         foreach($post->tags as $tag){
             $text="#".$tag->name;
@@ -119,6 +125,9 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        $user=Auth::user();
+        $this->authorize('update', $post);
+        
         $post->tags()->detach();
         $input=$request['post.body'];
         $post->body=$input;
@@ -148,14 +157,19 @@ class PostController extends Controller
     
     public function destroy(Post $post)
     {
+        $user=Auth::user();
+        $this->authorize('delete', $post);
+        
         foreach ($post->post_photos->pluck("image_path") as $path) 
-        PostPhoto::query()->where('post_id','=',$post->id)->delete();
-        foreach($post->tags->pluck("id") as $tag){
-            $post->tags()->detach($tag);   
-        }
+            PostPhoto::query()->where('post_id','=',$post->id)->delete();
+            foreach($post->tags->pluck("id") as $tag){
+                $post->tags()->detach($tag);   
+            }
         $post->delete();
         return redirect('/');
     }
+    
+    
     public function search(Request $request,Post $post)
     {
         $like = new Like;
@@ -164,48 +178,22 @@ class PostController extends Controller
             $input = $request->input;
             $posts = Post::query()->whereHas('user', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
-                })->orderBy('updated_at', 'DESC')->paginate(5);
+                })->orderBy('updated_at', 'DESC')->paginate(9);
             return view('post.search')->with(['like_model'=>$like,'posts'=> $posts]);
         }elseif($request->select=="tag"){
             $tag = new Tag;
             $input = $request->input;
             $posts = Post::query()->whereHas('tags', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
-                })->orderBy('updated_at', 'DESC')->paginate(5);
+                })->orderBy('updated_at', 'DESC')->paginate(9);
             return view('post.search')->with(['like_model'=>$like,'posts'=> $posts]);
         }else{
             $input = $request->input;
             $query = Post::query();
-            $search = $query->Where('body','LIKE',"%{$input}%")->orderBy('updated_at', 'DESC')->paginate(5);
+            $search = $query->Where('body','LIKE',"%{$input}%")->orderBy('updated_at', 'DESC')->paginate(9);
             return view('post.search')->with(['like_model'=>$like,'posts'=> $search]);
             
         }
     }
 }
 
-/*@if(count($post->post_photos)==2)
-                    <div class="container"> 
-                        <div id="carouselExampleControls" class="carousel slide"　data-ride="false" data-warp="true" data-touch="false" data-interval="false" >
-                            <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <a href="/posts/{{$post->id}}"><img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}"></a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a href="/posts/{{$post->id}}"><img class="d-block w-100 card-img-top" alt="Second slide"src="{{$post->post_photos[1]->image_path}}"></a>
-                                    </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="botton" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">前に戻る</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="botton" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">次に進む</span>
-                            </a>
-                        </div>
-                    </div>
-                @else
-                    <div class="container"> 
-                        <a href="/posts/{{$post->id}}"><img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}"></a>
-                    </div>
-                @endif*/

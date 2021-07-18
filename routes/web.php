@@ -19,7 +19,7 @@ Route::get('/posts/{post}','PostController@show');
 Route::get('/posts/{post}/edit','PostController@edit');
 
 
-Route::get('/profiles/create','ProfileController@create');
+Route::get('/profiles/create','ProfileController@create')->middleware('auth');
 Route::get('/profiles/mypage','ProfileController@myshow')->middleware('auth');
 Route::get('/profiles/{profile}','ProfileController@show');
 Route::get('/profiles/{profile}/edit','ProfileController@edit');
@@ -34,9 +34,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::post('/posts/store', 'PostController@store');
+Route::post('/posts/store', 'PostController@store')->middleware('auth');
 
-Route::post('/profiles/store', 'ProfileController@store');
+Route::post('/profiles/store', 'ProfileController@store')->middleware('auth');
 
 Route::put('/posts/{post}/update','PostController@update');
 

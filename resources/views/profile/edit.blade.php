@@ -14,57 +14,74 @@
        
      </head>
      <body>
-        @if($profile->image_path!=null)
-        <form action='/profiles/{{$profile->id}}/delete', method="POST" style="display:inline" id="button">
-            @csrf
-            @method('DELETE')
-            <input type="submit" onclick="return delet()" value="プロフィール画像の削除"/>
-        </form>
-        <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT') 
-            <div class="profile">
-                <div class="photo">
-                    <label>プロフィール画像</label>
-                    <img src="{{$profile->image_path}}">     
-                </div>    
-            <div class="body">
-                <h2>自己紹介</h2>
-                <textarea type="text" name="profile[body]">{{$profile->body}}</textarea>　
-                <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
+        
+    <a href="/" class="btn btn-primary">戻る</a>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">プロフィールの編集</div>
+                        @if($profile->image_path!=null)
+                            <form action='/profiles/{{$profile->id}}/delete', method="POST" style="display:inline" id="button">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" onclick="return delet()"  class="btn btn-primary" value="プロフィール画像の削除"/>
+                            </form>
+                            <div class="photo">
+                                <label>プロフィール画像</label>
+                                <img class="d-block w-100 card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
+                            </div>
+                            <div class="card-body">
+                                <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                        @else
+                            <div class="card-body">
+                                <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right">プロフィール画像がありません</label>
+                                        <div class="col-6">
+                                            <input type='file' name="profile[image_path]" class="form-control-file" placeholder="ファイル" />
+                                            <p class="files_error" style="color:red">{{$errors->first('profile.image_path')}}</p>
+                                        </div>
+                                    </div>
+                        @endif
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right">名前</label>
+                                        <div class="col-6">
+                                            <input type="text" name="user[name]" class="form-control" value={{$profile->user->name}}>　
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right">自己紹介</label>
+                                        <div class="col-6">
+                                            <textarea type="text" name="profile[body]" class="form-control">{{$profile->body}}</textarea>　
+                                            <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value='保存'>
+                                </form>
+                                <br><a href="/" class="btn btn-primary">戻る</a>
+                            </div>
+                    </div>
+                </div>
             </div>
-            <input type="submit" value='保存'>
-        </form>
-        @else
-        <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT') 
-            <label>プロフィール画像がありません</label>
-            <div class="photo" style="display:inline">
-                <input type='file' name="profile[image_path]" placeholder="ファイル"/>
-                 <p class="files_error" style="color:red">{{$errors->first('profile.image_path')}}</p>
-            </div>
-            <div class="body">
-                <h2>自己紹介</h2>
-                <textarea type="text" name="profile[body]">{{$profile->body}}</textarea>　
-                <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
-            </div>
-            <input type="submit" value='保存'>
-        </form>
-        @endif
-        <div class="back"><a href="/profiles/{{$profile->user_id}}">戻る</a></div>
+        </div>
+    </div>    
         <script>
-             function delet(){
+            function delet(){
                 if(confirm("削除してもよろしいですか？")){
                     
-                document.getElementById("button").submit();
+                    document.getElementById("button").submit();
                 }
                 else{
                     return false;
                     
                 }
               
-       }
+            }
         </script>
     </body>
 </html>
