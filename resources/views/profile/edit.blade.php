@@ -29,7 +29,7 @@
                             </form>
                             <div class="photo">
                                 <label>プロフィール画像</label>
-                                <img class="d-block w-100 card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
+                                <img class="card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
                             </div>
                             <div class="card-body">
                                 <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">

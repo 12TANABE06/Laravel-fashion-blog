@@ -29,45 +29,44 @@
                     @foreach($posts as $post)
                         <div class="card col-4 " style="width:18rem">
                             @if(count($post->post_photos)==2)
-                                <a href="/posts/{{$post->id}}"><img class="card-img-top h-100" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"></a> 
+                                <img class="card-img-top" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap">
                                 <div class="card-img-overlay">
                                     <h4 class="card-title"><i class="fas fa-clone" style="text-righ"></i></h4>
                                 </div>
                             @else
-                                <a href="/posts/{{$post->id}}"><img class="card-img-top h-100" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"></a>
+                                <img class="card-img-top" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap">
                             @endif
                             <div class="card-header">{{$post->user->name}}</div>
                             <div class="card-body">
-                            <div class="tag">
-                                @foreach($post->tags as $tag)
-                                    <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
-                                @endforeach
-                            </div>
-                            <p class="card-text">{{$post->body}}</p>
-                            <div id="like">
-                                @if(Auth::check())
-                                    @if($like_model->like_exist(Auth::user()->id,$post->id))
-                                        <p class="favorite-marke">
-                                            <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
-                                            <span class="likesCount">{{$post->likes->count()}}</span>
-                                        </p>
+                                <div class="tag">
+                                    @foreach($post->tags as $tag)
+                                        <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
+                                    @endforeach
+                                </div>
+                                <p class="card-text">{{$post->body}}</p>
+                                <div id="like">
+                                    @if(Auth::check())
+                                        @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                            <p class="favorite-marke">
+                                                <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
+                                                <span class="likesCount">{{$post->likes->count()}}</span>
+                                            </p>
+                                        @else
+                                            <p class="favorite-marke">
+                                                <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                                <span class="likesCount">{{$post->likes->count()}}</span>
+                                            </p>
+                                        @endif​
                                     @else
                                         <p class="favorite-marke">
-                                            <a class="js-like-toggle" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart" >いいね</i></a>
+                                            <i class="fas fa-heart">いいね</i>
                                             <span class="likesCount">{{$post->likes->count()}}</span>
                                         </p>
-                                    @endif​
-                                @else
-                                    <p class="favorite-marke">
-                                        <i class="fas fa-heart">いいね</i>
-                                        <span class="likesCount">{{$post->likes->count()}}</span>
-                                    </p>
-                                @endif
+                                    @endif
+                                </div>
+                                <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
                             </div>
-                            <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
                             <div class="card-footer">最終更新{{$post->updated_at}}</div>
-                            </div>
-                    
                         </div>
                     @endforeach
                 </div>

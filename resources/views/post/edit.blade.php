@@ -29,10 +29,10 @@
                                 <div id="carouselExampleControls" class="carousel slide"　data-ride="false" data-warp="true" data-touch="false" data-interval="false" >
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}">
+                                            <img class="card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}">
                                         </div>
                                         <div class="carousel-item">
-                                            <img class="d-block w-100 card-img-top" alt="Second slide"src="{{$post->post_photos[1]->image_path}}">
+                                            <img class="card-img-top" alt="Second slide"src="{{$post->post_photos[1]->image_path}}">
                                         </div>
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="botton" data-slide="prev">
@@ -47,7 +47,7 @@
                             </div>
                         @else
                             <div class="container"> 
-                               <img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}">
+                               <img class="card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}">
                             </div>
                         @endif
 

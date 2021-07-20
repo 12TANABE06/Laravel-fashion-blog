@@ -10,9 +10,13 @@
    justify-content: center;
 }
 
-.card{
-    z-index: 5;
-}
 .card-img-overlay{
     z-index: 1;
+}
+.card-header{
+     z-index: 10;
+}
+
+.card-body{
+    z-index: 10;
 }
