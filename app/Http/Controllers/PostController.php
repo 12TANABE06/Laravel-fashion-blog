@@ -198,5 +198,12 @@ class PostController extends Controller
             
         }
     }
+    
+    public function rank(Post $post)
+    {
+        $like = new Like;
+        $posts=Post::withCount('likes')->orderBy('likes_count', 'desc')->paginate(9);
+        return view('post.rank')->with(['like_model'=>$like,'posts'=>$posts]);//
+    }
 }
 
