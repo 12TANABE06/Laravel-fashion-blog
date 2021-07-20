@@ -35,19 +35,6 @@
                                 <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                        @else
-                            <div class="card-body">
-                                <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right">プロフィール画像がありません</label>
-                                        <div class="col-6">
-                                            <input type='file' name="profile[image_path]" class="form-control-file" placeholder="ファイル" />
-                                            <p class="files_error" style="color:red">{{$errors->first('profile.image_path')}}</p>
-                                        </div>
-                                    </div>
-                        @endif
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label text-md-right">名前</label>
                                         <div class="col-6">
@@ -65,6 +52,36 @@
                                 </form>
                                 <br><a href="/" class="btn btn-primary">戻る</a>
                             </div>
+                        @else
+                            <div class="card-body">
+                                <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right">プロフィール画像がありません</label>
+                                        <div class="col-6">
+                                            <input type='file' name="profile[image_path]" class="form-control-file" placeholder="ファイル" />
+                                            <p class="files_error" style="color:red">{{$errors->first('profile.image_path')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right">名前</label>
+                                        <div class="col-6">
+                                            <input type="text" name="user[name]" class="form-control" value={{$profile->user->name}}>　
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right">自己紹介</label>
+                                        <div class="col-6">
+                                            <textarea type="text" name="profile[body]" class="form-control">{{$profile->body}}</textarea>　
+                                            <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value='保存'>
+                                </form>
+                                <br><a href="/" class="btn btn-primary">戻る</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

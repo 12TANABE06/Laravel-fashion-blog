@@ -20,7 +20,7 @@ use App\Tag;
 
 use App\Like;
 
-use App\Policies\PostPolicy;
+
 
 class PostController extends Controller
 {
@@ -104,7 +104,7 @@ class PostController extends Controller
      */
     public function edit(Post $post){
         $user=Auth::user();
-        $this->authorize('view', $post);
+        $this->authorize('update', $post);
     
         $value="";
         foreach($post->tags as $tag){
@@ -160,9 +160,12 @@ class PostController extends Controller
         $user=Auth::user();
         $this->authorize('delete', $post);
         
-        foreach ($post->post_photos->pluck("image_path") as $path) 
+        foreach ($post->post_photos->pluck("image_path") as $path){
+            Storage::disk('s3')->delete(parse_url($path,PHP_URL_PATH));
             PostPhoto::query()->where('post_id','=',$post->id)->delete();
-            foreach($post->tags->pluck("id") as $tag){
+           
+        }
+        foreach($post->tags->pluck("id") as $tag){
                 $post->tags()->detach($tag);   
             }
         $post->delete();

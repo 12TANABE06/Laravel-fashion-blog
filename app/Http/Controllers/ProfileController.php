@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-use App\Policies\PostPolicy;
+
 
 class ProfileController extends Controller
 {
@@ -38,6 +38,7 @@ class ProfileController extends Controller
     
     public function myshow()
     {
+        
         $like = new Like;
         $user = Auth::user();
         $post = new Post;
@@ -76,13 +77,14 @@ class ProfileController extends Controller
     public function edit(Profile $profile)
     {
         $user=Auth::user();
-        $this->authorize('view', $profile);
+        $this->authorize('update',$profile);
         
         return view('profile.edit')->with(['profile'=>$profile]);
     }
     
      public function update(ProfileRequest $request, Profile $profile)
     {
+        
         $user=Auth::user();
         $this->authorize('update', $profile);
         

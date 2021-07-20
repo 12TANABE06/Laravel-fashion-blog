@@ -9,3 +9,10 @@
 .paginate{
    justify-content: center;
 }
+
+.card{
+    z-index: 5;
+}
+.card-img-overlay{
+    z-index: 1;
+}

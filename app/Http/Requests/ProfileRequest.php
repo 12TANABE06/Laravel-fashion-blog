@@ -33,5 +33,5 @@ class ProfileRequest extends FormRequest
             'profile.image_path.mimes' => '拡張子はjpeg,png,jpg,bmbのみです',
             'profile.body.max' => '最大400文字までです',
             ];
-}
+    }
 }
