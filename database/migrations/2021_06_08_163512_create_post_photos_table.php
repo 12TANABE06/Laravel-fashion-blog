@@ -18,7 +18,7 @@ class CreatePostPhotosTable extends Migration
             $table->integer('post_id');
             $table->string('image_path');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable($value = true);
 
         });

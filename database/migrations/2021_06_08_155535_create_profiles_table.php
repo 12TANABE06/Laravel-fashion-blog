@@ -19,7 +19,7 @@ class CreateProfilesTable extends Migration
             $table->string('image_path')->nullable();
             $table->text('body')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable($value = true);
         });
     }
