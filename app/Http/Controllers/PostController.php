@@ -6,6 +6,8 @@ use App\Post;
 
 use App\PostPhoto;
 
+use App\User;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\PostRequest;
 
+use App\Tag;
+
+use App\Like;
+
+
+
 class PostController extends Controller
 {
     /**
@@ -21,10 +29,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
     public function index(Post $post)
     {
-      
-        return view('post.index')->with(['posts'=>$post->getPaginateLimit()]);
+        $like = new Like;
+        
+        return view('post.index')->with(['like_model'=>$like,'posts'=>$post->getPaginateLimit()]);
     }
 
     /**
@@ -44,7 +54,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Post $post,PostRequest $request)
+    public function store(Post $post,PostRequest $request,Tag $tag)
     {
         $input=$request['post.body'];
         $post->user_id=Auth::user()->id;
@@ -52,12 +62,24 @@ class PostController extends Controller
         $post->save();
         foreach ($request->file('files') as $file) {
             $post_photo = new PostPhoto;
-            $path = Storage::disk('s3')->putFile('blog', $file["photo"], 'public');
+            $path = Storage::disk('s3')->putFile('posts', $file["photo"], 'public');
             $post_photo->image_path = Storage::disk('s3')->url($path);
             $post_photo->post_id= $post->id;
             $post_photo->save();
-            
-         }
+        
+        }
+        preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
+        $tags=[];
+        foreach($match[1] as $tag){
+            $record=Tag::firstOrCreate(['name'=>$tag]);
+            array_push($tags,$record);
+        }
+        $tags_id=[];
+        foreach($tags as $tag){
+            array_push($tags_id,$tag->id);
+        }
+        $post->tags()->attach($tags_id);
+        
         return redirect('/');
         
     }
@@ -70,7 +92,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-         return view('post.show')->with(['post'=>$post]);//
+        $like = new Like;
+         return view('post.show')->with(['like_model'=>$like,'post'=>$post]);//
     }
 
     /**
@@ -79,10 +102,19 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
-    {
-        return view('post.edit')->with(['post'=>$post]);;
+    public function edit(Post $post){
+        $user=Auth::user();
+        $this->authorize('update', $post);
+    
+        $value="";
+        foreach($post->tags as $tag){
+            $text="#".$tag->name;
+            $value.=$text;
+        }
+        return view('post.edit')->with(['post'=>$post,"text"=>$value]);
     }
+        
+    
 
     /**
      * Update the specified resource in storage.
@@ -93,10 +125,24 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-
+        $user=Auth::user();
+        $this->authorize('update', $post);
+        
+        $post->tags()->detach();
         $input=$request['post.body'];
         $post->body=$input;
         $post->save();
+        preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
+        $tags=[];
+        foreach($match[1] as $tag){
+            $record=Tag::firstOrCreate(['name'=>$tag]);
+            array_push($tags,$record);
+        }
+        $tags_id=[];
+        foreach($tags as $tag){
+            array_push($tags_id,$tag->id);
+        }
+        $post->tags()->attach($tags_id);
         
         return redirect('/posts/'.$post->id);
     
@@ -109,14 +155,55 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function destroy(Post $post,Request $request)
+    public function destroy(Post $post)
     {
-        foreach ($post->post_photos->pluck("image_path") as $path) {
-            //dd($path);
+        $user=Auth::user();
+        $this->authorize('delete', $post);
+        
+        foreach ($post->post_photos->pluck("image_path") as $path){
             Storage::disk('s3')->delete(parse_url($path,PHP_URL_PATH));
+            PostPhoto::query()->where('post_id','=',$post->id)->delete();
+           
+        }
+        foreach($post->tags->pluck("id") as $tag){
+                $post->tags()->detach($tag);   
             }
-        PostPhoto::query()->where('post_id','=',$post->id)->delete();
         $post->delete();
         return redirect('/');
     }
+    
+    
+    public function search(Request $request,Post $post)
+    {
+        $like = new Like;
+        if($request->select=="name"){
+            $user = new User;
+            $input = $request->input;
+            $posts = Post::query()->whereHas('user', function ($query) use ($input) {
+                $query->where('name', 'LIKE', "%{$input}%");
+                })->orderBy('updated_at', 'DESC')->paginate(9);
+            return view('post.search')->with(['like_model'=>$like,'posts'=> $posts]);
+        }elseif($request->select=="tag"){
+            $tag = new Tag;
+            $input = $request->input;
+            $posts = Post::query()->whereHas('tags', function ($query) use ($input) {
+                $query->where('name', 'LIKE', "%{$input}%");
+                })->orderBy('updated_at', 'DESC')->paginate(9);
+            return view('post.search')->with(['like_model'=>$like,'posts'=> $posts]);
+        }else{
+            $input = $request->input;
+            $query = Post::query();
+            $search = $query->Where('body','LIKE',"%{$input}%")->orderBy('updated_at', 'DESC')->paginate(9);
+            return view('post.search')->with(['like_model'=>$like,'posts'=> $search]);
+            
+        }
+    }
+    
+    public function rank(Post $post)
+    {
+        $like = new Like;
+        $posts=Post::withCount('likes')->orderBy('likes_count', 'desc')->paginate(9);
+        return view('post.rank')->with(['like_model'=>$like,'posts'=>$posts]);//
+    }
 }
+

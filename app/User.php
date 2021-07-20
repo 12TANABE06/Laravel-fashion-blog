@@ -45,5 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\profile',"user_id");
     }
+     public function likes()
+    {
+        return $this->belongsToMany('App\Post',"likes");
+    }
 }
 

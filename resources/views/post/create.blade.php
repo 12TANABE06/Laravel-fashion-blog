@@ -9,26 +9,52 @@
         <title>FashionBlog</title>
 
         <!-- Fonts -->
-        <link href="index.css" rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
        
-     </head>
-     <body>
-        <form action='/posts/store' method="POST" enctype="multipart/form-data">
-            @csrf
-             <label>画像ファイル</label>
-            <div class="photo" style="display:inline">
-                <input type='file' name="files[][photo]" multiple  placeholder="ファイル" required/>
-                 <p class="files_error" style="color:red">{{$errors->first('files.*.photo')}}</p>
+    </head>
+    <body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">新規投稿作成</div>
+
+                    <div class="card-body">
+                        <form action='/posts/store' method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right">画像ファイル</label>
+                                <div class="col-6">
+                                    <input type='file' name="files[][photo]" class="form-control-file" multiple  placeholder="ファイル" required/>
+                                    <p class="files_error" style="color:red">{{$errors->first('files.*.photo')}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right">タグ</label>
+                                <div class="col-6">
+                                    <input type="text" name="tags" class="form-control" placeholder="タグ" value={{old('tags')}}>
+                                </div>
+                            </div>    
+                            
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right">コメント</label>
+                                <div class="col-6">
+                                    <textarea type="text" name="post[body]" class="form-control" placeholder="コメント">{{old("post.body")}}</textarea>　
+                                    <p class="body_error" style="color:red">{{$errors->first('post.body')}}</p>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value='保存'>
+                        </form>
+                        <br><a href="/" class="btn btn-primary">戻る</a></div>
+                    
+                    </div>
+                </div>
             </div>
-            <div class="body">
-                <h2>コメント</h2>
-                <textarea type="text" name="post[body]"  placeholder="コメント">{{old("post.body")}}</textarea>　
-                <p class="body_error" style="color:red">{{$errors->first('post.body')}}</p>
-            </div>
-            <input type="submit" value='保存'>
-        </form>
-        <div class="back"><a href="/">戻る</a></div>
+        </div>
+    </div>    
     </body>
 </html>
 @endsection

@@ -20,30 +20,7 @@
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
-            <div class="mypage">
-                <a href='profiles/mypage/' class="btn btn-primary">マイページ</a>
-            </div>
-            <br>
-        <div class="create">
-            <a href='/posts/create' class="btn btn-primary">新規投稿作成</a>
-        </div>
-        <form action="/posts/search" method="GET">
-            @csrf
-            <div class="title">
-                <h2>検索</h2>
-                <p>
-                    <select name="select">
-                         <option value="name">ユーザー名</option>
-                        <option value="tag">タグ</option>
-                        <option value="body">本文</option>
-                    </select>
-                </p>
-                <input type="text" name="input"/>
-            </div>
-            <div class="button" >
-                <input class="btn btn-primary" type="submit" value="検索">
-            </div>
-        </form>
+        <h1>ランキング</h1>
         <div class='paginate d-flex justify-content-center'>
             {{$posts->links()}}
         </div>

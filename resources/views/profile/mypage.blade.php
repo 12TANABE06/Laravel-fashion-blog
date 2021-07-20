@@ -18,54 +18,66 @@
     <body>
         <a href="/" class="btn btn-primary">戻る</a></div>
         @if($profile==Null)
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">{{$user->name}}のページ</div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">{{$user->name}}</div>
+                             <div class="card-body">
+                                <h1>プロフィールが作成されていません</h1>
+                                <a href='/profiles/create' class="btn btn-primary"><h2>プロフィール作成</h2></a>
+                                <a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                <a href="/posts/create" class="btn btn-primary"><h2>新規投稿作成</h2></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         @else
             @if($profile->image_path!=null)
                 <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">{{$user->name}}</div>
-                                <div class="photo">
-                                    <label>プロフィール画像</label>
-                                    <img class="d-block w-100 card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
-                                </div>    
-                                <div class="card-body">
-                                    <div class="body">
-                                        <p class="card-text">自己紹介<br>{{$profile->body}}</p>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">{{$user->name}}</div>
+                                    <div class="photo">
+                                        <label>プロフィール画像</label>
+                                        <img class=" card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
+                                    </div>    
+                                    <div class="card-body">
+                                        <div class="body">
+                                            <p class="card-text">自己紹介<br>{{$profile->body}}</p>
+                                            <div class="update">
+                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-primary">プロフィールの編集</a>
+                                            </div>
+                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>    
-             @else
+            @else
                 <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">{{$user->name}}</div>
-                                <div class="photo">
-                                    <labe>プロフィール画像がありません</label>
-                                </div>    
-                                <div class="card-body">
-                                    <div class="body">
-                                        <p class="card-text">自己紹介{{$profile->body}}</p>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">{{$user->name}}</div>
+                                    <div class="photo">
+                                        <label>プロフィール画像がありません</label>
+                                    </div>    
+                                    <div class="card-body">
+                                        <div class="body">
+                                            <p class="card-text">自己紹介<br>{{$profile->body}}</p>
+                                            <div class="update">
+                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-primary">プロフィールの編集</a>
+                                            </div>
+                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>  
-               
             @endif
         @endif
         <h2 style="text-align:center">投稿一覧</h2>
@@ -116,6 +128,7 @@
                                 <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
                             </div>
                             <div class="card-footer">最終更新{{$post->updated_at}}</div>
+                            
                     
                         </div>
                     @endforeach
@@ -124,7 +137,8 @@
         </div>
         <div class='paginate d-flex justify-content-center'>
             {{$posts->links()}}
-        </div>
+        </div>        
+        
     </body>
 </html>
 @endsection
