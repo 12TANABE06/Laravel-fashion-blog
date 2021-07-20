@@ -53,12 +53,12 @@
                     @foreach($posts as $post)
                         <div class="card col-4 " style="width:18rem">
                             @if(count($post->post_photos)==2)
-                                <img class="card-img-top" style="height:90" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"> 
+                                <img class="card-img-top"src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"> 
                                 <div class="card-img-overlay">
                                     <h4 class="card-title"><i class="fas fa-clone" style="text-righ"></i></h4>
                                 </div>
                             @else
-                                <img class="card-img-top" style="height:90"src="{{$post->post_photos[0]->image_path}}"alt="Card image cap">
+                                <img class="card-img-top" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap">
                             @endif
                             <div class="card-header"><a href="/profiles/{{$post->user_id}}">{{$post->user->name}}</a></div>
                             <div class="card-body">
