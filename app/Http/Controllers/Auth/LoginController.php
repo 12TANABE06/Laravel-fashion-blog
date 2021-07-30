@@ -41,7 +41,6 @@ class LoginController extends Controller
     
     public function redirectToGoogle()
     {
-        dd(env('GOOGLE_CLIENT_ID'));
         return Socialite::driver('google')->redirect();
     }
 
