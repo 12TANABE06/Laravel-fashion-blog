@@ -56,13 +56,12 @@ class LoginController extends Controller
             'email'    => $googleUser->email,
             'password' => $googleUser->id,
             ]);
-            dd("a");
         }
         
         //$user['name'] = $googleUser->name;
         $user['email'] = $googleUser->email;
         $user['password'] = $googleUser->id;
-        Auth::login($user);
+        Auth::login($user,true);
         return redirect('/');
         
     }
