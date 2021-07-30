@@ -41,6 +41,7 @@ class LoginController extends Controller
     
     public function redirectToGoogle()
     {
+        dd(env('GOOGLE_CLIENT_ID'));
         return Socialite::driver('google')->redirect();
     }
 
@@ -48,19 +49,22 @@ class LoginController extends Controller
     {
        
         $googleUser = Socialite::driver('google')->stateless()->user();
-        dd($googleUser);
         $user=User::where('email', $googleUser->email)->first();
-        if(exit($user)){
-            Auth::login($user, true);
-            return redirect('/');
-            
-        }else{
-             $user = User::create([
+        if(!($user)){
+            $user = User::create([
             'name'     => $googleUser->name,
             'email'    => $googleUser->email,
-            'password' => \Hash::make(uniqid()),
-        ]);
+            'password' => $googleUser->id,
+            ]);
         }
+        $loginUser=([
+            'name'     => $googleUser->name,
+            'email'    => $googleUser->email,
+            'password' => $googleUser->id
+            ]);
+        Auth::login($loginUser);
+        return redirect('/');
+        
     }
     
 }
