@@ -58,7 +58,7 @@ class LoginController extends Controller
             ]);
         }
         
-        $user['name'] = $googleUser->name;
+        //$user['name'] = $googleUser->name;
         $user['email'] = $googleUser->email;
         $user['password'] = $googleUser->id;
         Auth::login($user);
