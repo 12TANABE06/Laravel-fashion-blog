@@ -62,11 +62,9 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
-                                
                             </div>
                             <div class="col-md-8 offset-md-4">
-                                <br>
-                                <a href="login/google" class="btn btn-primary">Google Login</a>
+                                <a href="/login/google" class="btn btn-primary">Google</a>
                             </div>
                         </div>
                     </form>
