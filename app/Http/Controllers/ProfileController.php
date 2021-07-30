@@ -78,19 +78,18 @@ class ProfileController extends Controller
     {
         
         $user=Auth::user();
-        $this->authorize('update',$profile);
-        //if($user->id===$profile->user_id){
+        
+        if($user->id===$profile->user_id){
             return view('profile.edit')->with(['profile'=>$profile]);
-        //}else{
-            //return redirect('/');
-        //}
+        }else{
+            return redirect('/');
+        }
         
     }
     
      public function update(ProfileRequest $request, Profile $profile)
     {
         $user=Auth::user();
-        //$this->authorize('update', $profile);
         if($user->id===$profile->user_id){
             $input_name=$request['user.name'];
             $user = User::find($profile->user_id);

@@ -59,9 +59,6 @@ class LoginController extends Controller
         }
         $user=User::where('email', $googleUser->email)->first();
         
-        //$user['name'] = $googleUser->name;
-        //$user['email'] = $googleUser->email;
-        //$user['password'] = $googleUser->id;
         Auth::login($user,true);
         return redirect('/');
         
