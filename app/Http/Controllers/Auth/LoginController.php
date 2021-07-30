@@ -48,9 +48,10 @@ class LoginController extends Controller
     {
        
         $googleUser = Socialite::driver('google')->stateless()->user();
-        $user=User::where('email', $googleUser->email)->first();
-        dd($user);
-        if(!($user)){
+        
+        if(User::where('email', $googleUser->email)){
+            $user=User::where('email', $googleUser->email)->first();
+        }else{
             $user = User::create([
             'name'     => $googleUser->name,
             'email'    => $googleUser->email,
