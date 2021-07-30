@@ -15,10 +15,11 @@ class CreatePostPhotosTable extends Migration
     {
         Schema::create('post_photos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('post_id');
+            $table->unsignedBigInteger('post_id');
             $table->string('image_path');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable($value = true);
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade'); 
 
         });
     }

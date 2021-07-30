@@ -10,7 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 
        
     </head>

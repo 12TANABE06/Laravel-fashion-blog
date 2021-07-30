@@ -76,46 +76,59 @@ class ProfileController extends Controller
     
     public function edit(Profile $profile)
     {
+        
         $user=Auth::user();
         $this->authorize('update',$profile);
+        //if($user->id===$profile->user_id){
+            return view('profile.edit')->with(['profile'=>$profile]);
+        //}else{
+            //return redirect('/');
+        //}
         
-        return view('profile.edit')->with(['profile'=>$profile]);
     }
     
      public function update(ProfileRequest $request, Profile $profile)
     {
-        
         $user=Auth::user();
-        $this->authorize('update', $profile);
+        //$this->authorize('update', $profile);
+        if($user->id===$profile->user_id){
+            $input_name=$request['user.name'];
+            $user = User::find($profile->user_id);
+            $user->name=$input_name;
+            $user->save();
+            $input_body=$request['profile.body'];
+            $profile->body=$input_body;
+           
+            if(file_exists($request['profile.image_path'])){
+                $path = Storage::disk('s3')->putFile('profiles', $request["profile.image_path"], 'public');
+                $profile->image_path = Storage::disk('s3')->url($path);
+                $profile->save();
+            }else{
+                $profile->save();
+                }
         
-        $input_name=$request['user.name'];
-        $user = User::find($profile->user_id);
-        $user->name=$input_name;
-        $user->save();
-        $input_body=$request['profile.body'];
-        $profile->body=$input_body;
-        if($request['profile.image_path']==null){
-             $profile->save();
+            return redirect('/profiles/mypage');
         }else{
-            $path = Storage::disk('s3')->putFile('profiles', $request["profile.image_path"], 'public');
-            $profile->image_path = Storage::disk('s3')->url($path);
-            $profile->save();
-            }
+            return redirect('/');
+        }
         
-        return redirect('/profiles/mypage');
     
     }
     
     public function destroy(Profile $profile,Request $request)
     {
         $user=Auth::user();
-        $this->authorize('delete', $profile);
+        //$this->authorize('delete', $profile);
+        if($user->id===$profile->user_id){
+            Storage::disk('s3')->delete(parse_url($profile->image_path,PHP_URL_PATH));
+            $profile->image_path=null;
+            $profile->save();
         
-        Storage::disk('s3')->delete(parse_url($profile->image_path,PHP_URL_PATH));
-        $profile->image_path=null;
-        $profile->save();
+            return redirect('/profiles/'.$profile->id.'/edit');
+        }else{
+            return redirect('/');
+        }
         
-        return redirect('/profiles/'.$profile->id.'/edit');
     }
     
 }

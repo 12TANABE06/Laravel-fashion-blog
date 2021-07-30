@@ -11,7 +11,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         
        
      </head>
@@ -20,6 +19,7 @@
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
+        <a href="/" class="btn btn-primary">戻る</a></div>
         <h1>ランキング</h1>
         <div class='paginate d-flex justify-content-center'>
             {{$posts->links()}}

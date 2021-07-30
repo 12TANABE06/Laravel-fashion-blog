@@ -11,7 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        
 
        
     </head>
@@ -25,9 +25,9 @@
                             <div class="card-header">{{$user->name}}</div>
                              <div class="card-body">
                                 <h1>プロフィールが作成されていません</h1>
-                                <a href='/profiles/create' class="btn btn-primary"><h2>プロフィール作成</h2></a>
+                                <a href='/profiles/create' class="btn btn-primary">プロフィール作成</a>
                                 <a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
-                                <a href="/posts/create" class="btn btn-primary"><h2>新規投稿作成</h2></a>
+                                <a href="/posts/create" class="btn btn-primary">新規投稿作成</a>
                         </div>
                     </div>
                 </div>

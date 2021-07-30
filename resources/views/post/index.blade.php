@@ -11,7 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        
         
        
      </head>
@@ -20,14 +20,18 @@
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
-            <div class="mypage">
-                <a href='profiles/mypage/' class="btn btn-primary">マイページ</a>
-            </div>
-            <br>
+        <div class="mypage">
+            <a href='profiles/mypage/' class="btn btn-primary">マイページ</a>
+        </div>
+        <br>
         <div class="create">
             <a href='/posts/create' class="btn btn-primary">新規投稿作成</a>
         </div>
-        <form action="/posts/search" method="GET">
+        <br>
+        <div class="rank">
+            <a href="/posts/rank" class="btn btn-primary">ランキング</a>
+        </div>
+        <form action="/search" method="GET">
             @csrf
             <div class="title">
                 <h2>検索</h2>
@@ -51,6 +55,7 @@
             <div class="container-fluid">
                 <div class="row">
                     @foreach($posts as $post)
+                    
                         <div class="card col-4 " style="width:18rem">
                             @if(count($post->post_photos)==2)
                                 <img class="card-img-top"src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"> 

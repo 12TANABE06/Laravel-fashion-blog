@@ -11,7 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet" type="text/css">
+        
         
      </head>
      <body>
@@ -31,7 +31,7 @@
                                     <h4 class="card-title"><i class="fas fa-clone" style="text-righ"></i></h4>
                                 </div>
                             @else
-                                <img class="card-img-top h-100" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap">
+                                <img class="card-img-top" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap">
                             @endif
                             <div class="card-header"><a href="/profiles/{{$post->user_id}}">{{$post->user->name}}</a></div>
                             <div class="card-body">
