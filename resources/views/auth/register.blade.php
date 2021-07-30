@@ -69,6 +69,7 @@
                             </div>
                         </div>
                     </form>
+                    <a href="/login/google" class="btn btn-primary">Googleアカウントで登録</a>
                 </div>
             </div>
         </div>
