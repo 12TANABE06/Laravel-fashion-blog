@@ -48,7 +48,7 @@ class LoginController extends Controller
     {
        
         $googleUser = Socialite::driver('google')->stateless()->user();
-        
+        dd($googleUser);
         if(User::where('email', $googleUser->email)->first()){
             $user=User::where('email', $googleUser->email)->first();
         }else{
