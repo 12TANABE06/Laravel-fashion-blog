@@ -10,12 +10,13 @@ like.on('click', function () {
     var $this = $(this);
     likePostId = $this.data('postid');
     console.log(like);
-    $.ajax({
+    $.ajax({ 
+            type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: "/likes",  
-            type: 'POST', 
+            
             data: {
                 'post_id': likePostId 
             },
