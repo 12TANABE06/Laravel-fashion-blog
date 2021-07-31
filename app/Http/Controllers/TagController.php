@@ -28,10 +28,10 @@ class TagController extends Controller
     
     }*/
     
-    public function destroy(Tag $tag)
+    /*public function destroy(Tag $tag)
     {
         
         $post->tags()->detach($tag);   
         return redirect('/posts/'.$post->id.'/edit');
-    }
+    }*/
 }

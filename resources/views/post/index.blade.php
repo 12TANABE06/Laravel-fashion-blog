@@ -20,17 +20,20 @@
         <div class="blogtitle">
              <h1>FashionBlog</h1>
         </div>
-        <div class="mypage">
-            <a href='profiles/mypage/' class="btn btn-primary">マイページ</a>
-        </div>
-        <br>
-        <div class="create">
-            <a href='/posts/create' class="btn btn-primary">新規投稿作成</a>
-        </div>
-        <br>
-        <div class="rank">
-            <a href="/posts/rank" class="btn btn-primary">ランキング</a>
-        </div>
+            <div class="row">
+                <div class="mypage">
+                    <a href='profiles/mypage/' class="btn btn-primary">マイページ</a>
+                </div>
+                <br>
+                <div class="create">
+                    <a href='/posts/create' class="btn btn-primary">新規投稿作成</a>
+                </div>
+                <br>
+                <div class="rank">
+                    <a href="/posts/rank" class="btn btn-primary">ランキング</a>
+                </div>
+            </div>
+        
         <form action="/search" method="GET">
             @csrf
             <div class="title">
@@ -45,7 +48,7 @@
                 <input type="text" name="input"/>
             </div>
             <div class="button" >
-                <input class="btn btn-primary" type="submit" value="検索">
+                <input class="btn btn-primary w-auto" type="submit" value="検索">
             </div>
         </form>
         <div class='paginate d-flex justify-content-center'>

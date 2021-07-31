@@ -1,11 +1,11 @@
+.blogtitle{
+    text-align: center
+}
+
 .loved i {
   color: red
 }
-/*card-img-top {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
-}*/
+
 .paginate{
    justify-content: center;
 }

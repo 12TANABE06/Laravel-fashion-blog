@@ -19,7 +19,7 @@ class LikeController extends Controller
         $like = new Like;
         $post = new Post;
         $user = User::where("id",$user_id)->first();
-        $post = $user->likes()->orderBy('updated_at', 'DESC')->paginate(5);
+        $post = $user->likes()->orderBy('updated_at', 'DESC')->paginate(9);
         return view('like.index')->with(['like_model'=>$like,'posts'=>$post]);
     }
     public function store(Request $request)

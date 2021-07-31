@@ -9,8 +9,6 @@
         <title>FashionBlog</title>
 
         <!-- Fonts -->
-        <!--<link href="index.css" rel="stylesheet" type="text/css">-->
-
        
      </head>
      <body>
