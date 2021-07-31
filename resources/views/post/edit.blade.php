@@ -9,7 +9,7 @@
         <title>FashionBlog</title>
 
         <!-- Fonts -->
-        <link href="index.css" rel="stylesheet" type="text/css">
+        <!--<link href="index.css" rel="stylesheet" type="text/css">-->
 
        
      </head>
@@ -58,7 +58,7 @@
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right">タグ</label>
                                 <div class="col-6">
-                                    <input type="text" name="tags" class="form-control" value="{{$text}}">
+                                    <input type="text" name="tags" class="form-control" value="{{$tags}}">
                                 </div>
                             </div>    
                             

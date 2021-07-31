@@ -63,6 +63,10 @@
                                     </a>
                                 @endif
                             </div>
+                            <div class="col-md-8 offset-md-4">
+                                <br>
+                                <a href="/login/google" class="btn btn-primary">Googleアカウントでログイン</a>
+                            </div>
                         </div>
                     </form>
                 </div>

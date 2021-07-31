@@ -111,7 +111,7 @@ class PostController extends Controller
             $text="#".$tag->name;
             $value.=$text;
         }
-        return view('post.edit')->with(['post'=>$post,"text"=>$value]);
+        return view('post.edit')->with(['post'=>$post,"tags"=>$value]);
     }
         
     

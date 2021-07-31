@@ -13,8 +13,9 @@
 
 
 Route::get('/', 'PostController@index');
-Route::get('/posts/search', 'PostController@search');
+Route::get('/search', 'PostController@search');
 Route::get('/posts/create', 'PostController@create')->middleware('auth');
+Route::get('/posts/rank','PostController@rank');
 Route::get('/posts/{post}','PostController@show');
 Route::get('/posts/{post}/edit','PostController@edit');
 
@@ -26,9 +27,10 @@ Route::get('/profiles/{profile}/edit','ProfileController@edit');
 
 
 
-Route::get('/likes/{like}', 'LikeController@index');
+Route::get('/likes/{like}', 'LikeController@index')->middleware('auth');
 
-Route::get('/comments/', 'CommentController@index');
+Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
