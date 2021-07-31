@@ -14,7 +14,7 @@ like.on('click', function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "https://fashion-bolg.herokuapp.com/likes", //heroku用 
+            url: "likes", //heroku用 
             type: 'POST', 
             data: {
                 'post_id': likePostId 
