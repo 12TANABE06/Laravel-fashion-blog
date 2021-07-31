@@ -25,7 +25,7 @@ Route::get('/profiles/mypage','ProfileController@myshow')->middleware('auth');
 Route::get('/profiles/{profile}','ProfileController@show');
 Route::get('/profiles/{profile}/edit','ProfileController@edit');
 
-Route::post('/likes','LikeController@store');
+Route::post('/likes','LikeController@store')->middleware('auth');
 
 Route::get('/likes/{like}', 'LikeController@index')->middleware('auth');
 
