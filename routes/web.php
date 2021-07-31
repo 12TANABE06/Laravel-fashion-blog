@@ -40,7 +40,9 @@ Route::post('/posts/store', 'PostController@store')->middleware('auth');
 
 Route::post('/profiles/store', 'ProfileController@store')->middleware('auth');
 
-Route::post('/likes','LikeController@store');
+Route::post('/likes',function(){
+    dd("a");
+});
 
 Route::put('/posts/{post}/update','PostController@update');
 
