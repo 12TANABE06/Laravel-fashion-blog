@@ -8,7 +8,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>FashionBlog</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ mix('/js/like.js') }}"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         
