@@ -13,7 +13,7 @@ class PostPhotosTableSeeder extends Seeder
     public function run()
     {
         
-        DB::table('post_photos')->truncate();//既存のデータの削除
+        DB::table('post_photos')->truncate();
         factory(PostPhoto::class,10)->create(); 
         
         //

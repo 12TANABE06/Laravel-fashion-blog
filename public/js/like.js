@@ -11002,25 +11002,16 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
       headers: {
         'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_0___default()('meta[name="csrf-token"]').attr('content')
       },
-      url: "/likes/",
-      //routeの記述
+      url: "/likes",
       type: 'POST',
-      //受け取り方法の記述（GETもある）
       data: {
-        'post_id': likePostId //コントローラーに渡すパラメーター
-
+        'post_id': likePostId
       }
-    }) // Ajaxリクエストが成功した場合
-    .done(function (data) {
-      //lovedクラスを追加
+    }).done(function (data) {
       $this.toggleClass('loved');
-      console.log(data.postLikesCount); //.likesCountの次の要素のhtmlを「data.postLikesCount」の値に書き換える
-
+      console.log(data.postLikesCount);
       $this.next('.likesCount').html(data.postLikesCount);
-    }) // Ajaxリクエストが失敗した場合
-    .fail(function (data, xhr, err) {
-      //ここの処理はエラーが出た時にエラー内容をわかるようにしておく。
-      //とりあえず下記のように記述しておけばエラー内容が詳しくわかります。笑
+    }).fail(function (data, xhr, err) {
       console.log('エラー');
       console.log(err);
       console.log(xhr);

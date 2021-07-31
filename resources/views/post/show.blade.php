@@ -21,15 +21,15 @@
                     <div class="card">
                         <div class="back"><a href="/" class="btn btn-primary">戻る</a></div>
                         <div class="card-header"><a href="/profiles/{{$post->user_id}}">{{$post->user->name}}</a></div>
-                        @if(count($post->post_photos)==2)
+                        @if (count($post->post_photos) == 2)
                             <div class="container"> 
                                 <div id="carouselExampleControls" class="carousel slide"　data-ride="false" data-warp="true" data-touch="false" data-interval="false" >
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block w-100 card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}">
+                                            <img class="d-block w-100 card-img-top" alt="First slide" src="{{$post->post_photos[0]->image_path}}">
                                         </div>
                                         <div class="carousel-item">
-                                            <img class="d-block w-100 card-img-top" alt="Second slide"src="{{$post->post_photos[1]->image_path}}">
+                                            <img class="d-block w-100 card-img-top" alt="Second slide" src="{{$post->post_photos[1]->image_path}}">
                                         </div>
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="botton" data-slide="prev">
@@ -44,19 +44,19 @@
                             </div>
                         @else
                             <div class="container"> 
-                                <img class="card-img-top" alt="First slide"src="{{$post->post_photos[0]->image_path}}">
+                                <img class="card-img-top" alt="First slide" src="{{$post->post_photos[0]->image_path}}">
                             </div>
                         @endif
                         <div class="card-body">
                             <div class="tag">
-                                @foreach($post->tags as $tag)
+                                @foreach ($post->tags as $tag)
                                     <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
                                 @endforeach
                             </div>
                             <p class="card-text">{{$post->body}}</p>
                             <div id="like">
-                                @if(Auth::check())
-                                    @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                @if (Auth::check())
+                                    @if ($like_model->like_exist(Auth::id(), $post->id))
                                         <p class="favorite-marke">
                                             <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
                                             <span class="likesCount">{{$post->likes->count()}}</span>
@@ -75,8 +75,8 @@
                                 @endif
                             </div>
                             <div class="setting" style="display:inline">
-                                @if(Auth::check())
-                                    @if(Auth::user()->id==$post->user_id)
+                                @if (Auth::check())
+                                    @if (Auth::id() == $post->user_id)
                                     <div class="update">
                                         <a href='/posts/{{$post->id}}/edit' class="btn btn-primary">編集</a>
                                     </div>

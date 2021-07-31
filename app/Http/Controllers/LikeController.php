@@ -18,16 +18,16 @@ class LikeController extends Controller
     {
         $like = new Like;
         $post = new Post;
-        $user = User::where("id",$user_id)->first();
+        $user = User::where("id", $user_id)->first();
         $post = $user->likes()->orderBy('updated_at', 'DESC')->paginate(9);
-        return view('like.index')->with(['like_model'=>$like,'posts'=>$post]);
+        return view('like.index')->with(['like_model'=>$like, 'posts'=>$post]);
     }
     public function store(Request $request)
     {
         $like = new Like;
-        $user_id=Auth::user()->id;
-        $post_id=$request->post_id;
-        if($like->like_exist($user_id,$post_id)){
+        $user_id = Auth::id();
+        $post_id = $request->post_id;
+        if ($like->like_exist($user_id, $post_id)) {
             
             Like::where('user_id', $user_id)->where('post_id', $post_id)->delete();
         }else{

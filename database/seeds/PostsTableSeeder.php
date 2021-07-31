@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('posts')->truncate();//既存のデータの削除
+        DB::table('posts')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         factory(Post::class,10)->create(); 
         //

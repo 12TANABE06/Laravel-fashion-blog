@@ -42,8 +42,8 @@ class ProfileController extends Controller
         $like = new Like;
         $user = Auth::user();
         $post = new Post;
-        $profile = Profile::where('user_id',$user->id)->first();
-        $post = Post::where('user_id',$user->id)->orderBy('updated_at', 'DESC')->paginate(9);
+        $profile = Profile::where('user_id', $user->id)->first();
+        $post = Post::where('user_id', $user->id)->orderBy('updated_at', 'DESC')->paginate(9);
         return view('profile.mypage')->with([
             'profile'=>$profile,
             'posts'=>$post,
@@ -57,12 +57,12 @@ class ProfileController extends Controller
         //
     }
      
-     public function store(Profile $profile,ProfileRequest $request)
+     public function store(Profile $profile, ProfileRequest $request)
     {
-        $input=$request['profile.body'];
-        $profile->user_id=Auth::user()->id;
-        $profile->body=$input;
-         if($request['profile.image_path']==null){
+        $input = $request['profile.body'];
+        $profile->user_id = Auth::id();
+        $profile->body = $input;
+         if($request['profile.image_path'] == null) {
              $profile->save();
         }else{
             $path = Storage::disk('s3')->putFile('profiles', $request["profile.image_path"], 'public');
@@ -77,9 +77,9 @@ class ProfileController extends Controller
     public function edit(Profile $profile)
     {
         
-        $user=Auth::user();
+        $user = Auth::user();
         
-        if($user->id===$profile->user_id){
+        if($user->id === $profile->user_id) {
             return view('profile.edit')->with(['profile'=>$profile]);
         }else{
             return redirect('/');
@@ -89,16 +89,16 @@ class ProfileController extends Controller
     
      public function update(ProfileRequest $request, Profile $profile)
     {
-        $user=Auth::user();
-        if($user->id===$profile->user_id){
-            $input_name=$request['user.name'];
+        $user = Auth::user();
+        if($user->id === $profile->user_id) {
+            $input_name = $request['user.name'];
             $user = User::find($profile->user_id);
             $user->name=$input_name;
             $user->save();
-            $input_body=$request['profile.body'];
-            $profile->body=$input_body;
+            $input_body = $request['profile.body'];
+            $profile->body = $input_body;
            
-            if(file_exists($request['profile.image_path'])){
+            if(file_exists($request['profile.image_path'])) {
                 $path = Storage::disk('s3')->putFile('profiles', $request["profile.image_path"], 'public');
                 $profile->image_path = Storage::disk('s3')->url($path);
                 $profile->save();
@@ -114,13 +114,13 @@ class ProfileController extends Controller
     
     }
     
-    public function destroy(Profile $profile,Request $request)
+    public function destroy(Profile $profile, Request $request)
     {
         $user=Auth::user();
         //$this->authorize('delete', $profile);
-        if($user->id===$profile->user_id){
-            Storage::disk('s3')->delete(parse_url($profile->image_path,PHP_URL_PATH));
-            $profile->image_path=null;
+        if ($user->id === $profile->user_id) {
+            Storage::disk('s3')->delete(parse_url($profile->image_path, PHP_URL_PATH));
+            $profile->image_path = null;
             $profile->save();
         
             return redirect('/profiles/'.$profile->id.'/edit');

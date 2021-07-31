@@ -21,15 +21,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">プロフィールの編集</div>
-                        @if($profile->image_path!=null)
-                            <form action='/profiles/{{$profile->id}}/delete', method="POST" style="display:inline" id="button">
+                        @if ($profile->image_path != null)
+                            <form action='/profiles/{{$profile->id}}/delete' method="POST" style="display:inline" id="button">
                                 @csrf
                                 @method('DELETE')
-                                <input type="submit" onclick="return delet()"  class="btn btn-primary" value="プロフィール画像の削除"/>
+                                <input type="submit" onclick="return delet()" class="btn btn-primary" value="プロフィール画像の削除"/>
                             </form>
                             <div class="photo">
                                 <label>プロフィール画像</label>
-                                <img class="card-img-top rounded-circle" alt="First slide"src="{{$profile->image_path}}">
+                                <img class="card-img-top rounded-circle" alt="First slide" src="{{$profile->image_path}}">
                             </div>
                             <div class="card-body">
                                 <form action='/profiles/{{$profile->id}}/update' method="POST" enctype="multipart/form-data">

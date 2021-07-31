@@ -17,8 +17,7 @@ class PostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             'files.*.photo' => 'required|file|mimes:jpeg,png,jpg,bmb|max:2048',
             'files' => 'max:2',
@@ -26,7 +25,7 @@ class PostRequest extends FormRequest
         ];
     }
     
-    public function messages(){
+    public function messages() {
   return  [
     'files.*.photo.required' => '画像を選択してください',
     'files.*.photo.mimes' => '拡張子はjpeg,png,jpg,bmbのみです',

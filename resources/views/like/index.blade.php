@@ -23,9 +23,9 @@
             <h2 style="text-align:center">いいねした投稿</h2>
             <div class="container-fluid">
                 <div class="row">
-                    @foreach($posts as $post)
+                    @foreach ($posts as $post)
                         <div class="card col-4 " style="width:18rem">
-                            @if(count($post->post_photos)==2)
+                            @if (count($post->post_photos) == 2)
                                 <img class="card-img-top" src="{{$post->post_photos[0]->image_path}}"alt="Card image cap"> 
                                 <div class="card-img-overlay">
                                     <h4 class="card-title"><i class="fas fa-clone" style="text-righ"></i></h4>
@@ -36,14 +36,14 @@
                             <div class="card-header"><a href="/profiles/{{$post->user_id}}">{{$post->user->name}}</a></div>
                             <div class="card-body">
                                 <div class="tag">
-                                    @foreach($post->tags as $tag)
+                                    @foreach ($post->tags as $tag)
                                         <span class="badge badge-pill badge-info">{{$tag->name}}</span> 
                                     @endforeach
                                 </div>
                                 <p class="card-text">{{$post->body}}</p>
                                 <div id="like">
                                     @if(Auth::check())
-                                        @if($like_model->like_exist(Auth::user()->id,$post->id))
+                                        @if ($like_model->like_exist(Auth::id(), $post->id))
                                             <p class="favorite-marke">
                                                 <a class="js-like-toggle loved" href='' data-postid="{{ $post->id }}"><i class="fas fa-heart">いいね</i></a>
                                                 <span class="likesCount">{{$post->likes->count()}}</span>

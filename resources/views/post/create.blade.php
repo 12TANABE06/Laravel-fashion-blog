@@ -7,11 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>FashionBlog</title>
-
-        <!-- Fonts -->
-        <!--<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">-->
-        <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
-
        
     </head>
     <body>
