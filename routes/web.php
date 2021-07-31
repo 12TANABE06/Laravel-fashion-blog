@@ -25,7 +25,7 @@ Route::get('/profiles/mypage','ProfileController@myshow')->middleware('auth');
 Route::get('/profiles/{profile}','ProfileController@show');
 Route::get('/profiles/{profile}/edit','ProfileController@edit');
 
-
+Route::post('/likes','LikeController@store');
 
 Route::get('/likes/{like}', 'LikeController@index')->middleware('auth');
 
@@ -38,7 +38,7 @@ Route::post('/posts/store', 'PostController@store')->middleware('auth');
 
 Route::post('/profiles/store', 'ProfileController@store')->middleware('auth');
 
-Route::post('/likes','LikeController@store');
+
 
 Route::put('/posts/{post}/update','PostController@update');
 
