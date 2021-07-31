@@ -24,6 +24,7 @@ class LikeController extends Controller
     }
     public function store(Request $request)
     {
+        dd("a");
         $like = new Like;
         $user_id = Auth::id();
         $post_id = $request->post_id;
