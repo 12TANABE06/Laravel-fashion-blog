@@ -14,7 +14,7 @@ like.on('click', function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "/likes", //heroku用 
+            url: "/likes/",  
             type: 'POST', 
             data: {
                 'post_id': likePostId 

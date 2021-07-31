@@ -34,15 +34,11 @@ Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback')
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
 Route::post('/posts/store', 'PostController@store')->middleware('auth');
 
 Route::post('/profiles/store', 'ProfileController@store')->middleware('auth');
 
-Route::post('/likes',function(){
-    dd("a");
-});
+Route::post('/likes','LikeController@store')->middleware('auth');
 
 Route::put('/posts/{post}/update','PostController@update');
 
@@ -50,6 +46,10 @@ Route::put('/profiles/{profile}/update','ProfileController@update');
 
 Route::delete('/posts/{post}/delete','PostController@destroy');
 Route::delete('/profiles/{profile}/delete','ProfileController@destroy');
+
+Auth::routes();
+
+
 
 
 
