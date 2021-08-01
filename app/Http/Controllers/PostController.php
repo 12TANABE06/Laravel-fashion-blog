@@ -182,7 +182,7 @@ class PostController extends Controller
         if ($request->select == "name") {
             $user = new User;
             $input = $request->input;
-            $posts = Post::query()->whereHas('user', function ($query) use ($input) {
+            $posts = Post::whereHas('user', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
                 })->orderBy('updated_at', 'DESC')->paginate(9);
                 
@@ -191,7 +191,7 @@ class PostController extends Controller
         }elseif($request->select == "tag") {
             $tag = new Tag;
             $input = $request->input;
-            $posts = Post::query()->whereHas('tags', function ($query) use ($input) {
+            $posts = Post::whereHas('tags', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
                 })->orderBy('updated_at', 'DESC')->paginate(9);
                 
@@ -199,8 +199,7 @@ class PostController extends Controller
             
         }else{
             $input = $request->input;
-            $query = Post::query();
-            $search = $query->Where('body', 'LIKE', "%{$input}%")->orderBy('updated_at', 'DESC')->paginate(9);
+            $search = Post::Where('body', 'LIKE', "%{$input}%")->orderBy('updated_at', 'DESC')->paginate(9);
             
             return view('post.search')->with(['like_model'=>$like, 'posts'=> $search]);
             

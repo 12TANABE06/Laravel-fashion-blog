@@ -20,7 +20,6 @@ class AuthServiceProvider extends ServiceProvider
         
         
         Post::class => PostPolicy::class,
-        Profile::class => ProfilePolicy::class
         
     ];
 

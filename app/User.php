@@ -38,12 +38,12 @@ class User extends Authenticatable
     ];
     public function post()
     {
-        return $this->hasMany('App\post',"user_id");
+        return $this->hasMany('App\Post',"user_id");
     }
     
      public function profile()
     {
-        return $this->hasOne('App\profile',"user_id");
+        return $this->hasOne('App\Profile',"user_id");
     }
      public function likes()
     {

@@ -25,9 +25,8 @@ class ProfileController extends Controller
      public function show($user_id)
     {
         $like = new Like;
-        $post = new Post;
         $user = User::find($user_id);
-        $profile = Profile::where('user_id',$user_id)->first();
+        $profile = $user->profile;
         $post = Post::where('user_id',$user_id)->orderBy('updated_at', 'DESC')->paginate(9);
         return view('profile.show')->with([
             'profile'=>$profile,
@@ -41,8 +40,7 @@ class ProfileController extends Controller
         
         $like = new Like;
         $user = Auth::user();
-        $post = new Post;
-        $profile = Profile::where('user_id', $user->id)->first();
+        $profile = $user->profile;
         $post = Post::where('user_id', $user->id)->orderBy('updated_at', 'DESC')->paginate(9);
         return view('profile.mypage')->with([
             'profile'=>$profile,
@@ -77,9 +75,8 @@ class ProfileController extends Controller
     public function edit(Profile $profile)
     {
         
-        $user = Auth::user();
-        
-        if($user->id === $profile->user_id) {
+        $loginUser = Auth::user();
+        if($loginUser->id === $profile->user_id) {
             return view('profile.edit')->with(['profile'=>$profile]);
         }else{
             return redirect('/');
@@ -89,8 +86,8 @@ class ProfileController extends Controller
     
      public function update(ProfileRequest $request, Profile $profile)
     {
-        $user = Auth::user();
-        if($user->id === $profile->user_id) {
+        $loginUser = Auth::user();
+        if ($loginUser->id === $profile->user_id) {
             $input_name = $request['user.name'];
             $user = User::find($profile->user_id);
             $user->name=$input_name;
@@ -116,9 +113,8 @@ class ProfileController extends Controller
     
     public function destroy(Profile $profile, Request $request)
     {
-        $user=Auth::user();
-        //$this->authorize('delete', $profile);
-        if ($user->id === $profile->user_id) {
+        $loginUser=Auth::user();
+        if ($loginUser->id === $profile->user_id) {
             Storage::disk('s3')->delete(parse_url($profile->image_path, PHP_URL_PATH));
             $profile->image_path = null;
             $profile->save();
