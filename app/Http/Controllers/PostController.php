@@ -184,7 +184,7 @@ class PostController extends Controller
             $input = $request->input;
             $posts = Post::whereHas('user', function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%{$input}%");
-                })->orderBy('updated_at', 'DESC')->paginate(9);
+                })->orderBy('updated_at', 'DESC')->paginate(1);
                 
             return view('post.search')->with(['like_model'=>$like, 'posts'=> $posts]);
             
