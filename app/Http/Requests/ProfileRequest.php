@@ -23,7 +23,7 @@ class ProfileRequest extends FormRequest
      */
     public function rules() {
          return [
-            'profile.image_path' => 'file|mimes:jpeg,png,jpg,bmb|max:8192',
+            'profile.image_path' => 'file|mimes:jpeg,png,jpg,bmb|max:10240',
             'profile.body' => 'max:400',
         ];
     }
