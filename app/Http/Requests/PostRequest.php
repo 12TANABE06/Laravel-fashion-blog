@@ -19,7 +19,7 @@ class PostRequest extends FormRequest
      */
     public function rules() {
         return [
-            'files.*.photo' => 'required|file|mimes:jpeg,png,jpg,bmb|max:8192',
+            'files.*.photo' => 'required|file|mimes:jpeg,png,jpg,bmb|max:20480',
             'files' => 'max:2',
             'post.body' => 'max:400',
         ];
