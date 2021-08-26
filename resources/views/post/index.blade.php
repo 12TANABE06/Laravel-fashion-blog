@@ -57,7 +57,6 @@
             <div class="container-fluid">
                 <div class="row">
                     @foreach ($posts as $post)
-                    
                         <div class="card col-4 " style="width:18rem">
                             @if (count($post->post_photos) == 2)
                                 <img class="card-img-top"src="{{$post->post_photos[0]->image_path}}" alt="Card image cap"> 

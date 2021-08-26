@@ -20,6 +20,8 @@ use App\Tag;
 
 use App\Like;
 
+use Intervention\Image\Facades\Image;
+
 
 
 class PostController extends Controller
@@ -62,6 +64,8 @@ class PostController extends Controller
         $post->save();
         foreach ($request->file('files') as $file) {
             $post_photo = new PostPhoto;
+            //$image = Image::make($file["photo"])->fit(640, 360);
+            //$image->orientate()->save();
             $path = Storage::disk('s3')->putFile('posts', $file["photo"], 'public');
             $post_photo->image_path = Storage::disk('s3')->url($path);
             $post_photo->post_id = $post->id;
