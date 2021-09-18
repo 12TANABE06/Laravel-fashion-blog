@@ -76,6 +76,15 @@
         <main class="py-4">
             @yield('content')
         </main>
+        
+        <footer>
+            <div id="app">
+                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+                    <p>@2021 Ryosuke Tanabe</p>
+                </nav>
+            </div>
+        </footer>
+    
     </div>
 </body>
 </html>
