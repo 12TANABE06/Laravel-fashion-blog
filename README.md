@@ -76,3 +76,28 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+ーーーーーここからーーーーー
+# アプリ名
+Fashion Blog
+# 概要
+ユーザー認証付きの画像投稿機能を有したSNS型ファッションブログサービス
+# 使用言語
+Laravel6,bootstrap4,PHP(ver.7.3.28),html,css,Javascript
+# 機能
+ユーザー認証機能、Goole APIを用いたGooleアカウントでのユーザー認証機能、投稿の一覧表示、投稿の詳細表示、最大２枚の画像とハッシュタグとコメントを投稿できる投稿（画像は最低１枚は必須）と編集（ハッシュタグとコメントのみ）と削除機能、投稿の検索機能（ユーザー名、ハッシュタグ、コメントから検索）、非同期のいいね機能といいね数によるランキング機能、マイページ機能（プロフィール画像と自己紹介文の投稿と編集と削除機能、自分の投稿と自分がいいねした投稿の一覧表示、ユーザー名の編集機能）
+# 非機能
+画像ファイルの保存のためS3の使用
+# 注力した機能
+今回このWebアプリケーションを作成したきっかけとして普段使用しているアプリにはない画像の複数枚投稿機能を有したもの作成するため、画像の複数枚投稿機能に注力した。
+# 工夫した点
+
+# 環境構築の手順
+
+# デモ
+
+# 注意点
+
+
+
+
