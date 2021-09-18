@@ -26,12 +26,7 @@ use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
+    
     public function index(Post $post)
     {
         $like = new Like;
@@ -39,39 +34,31 @@ class PostController extends Controller
         return view('post.index')->with(['like_model'=>$like, 'posts'=>$post->getPaginateLimit()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         return view('post.create');
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Post $post, PostRequest $request, Tag $tag)
     {
+        
         $input = $request['post.body'];
         $post->user_id = Auth::id();
         $post->body = $input;
         $post->save();
+        
         foreach ($request->file('files') as $file) {
             $post_photo = new PostPhoto;
-            //$image = Image::make($file["photo"])->fit(640, 360);
-            //$image->orientate()->save();
             $path = Storage::disk('s3')->putFile('posts', $file["photo"], 'public');
             $post_photo->image_path = Storage::disk('s3')->url($path);
             $post_photo->post_id = $post->id;
             $post_photo->save();
         
         }
+        
         preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
         $tags = [];
         foreach ($match[1] as $tag) {
@@ -88,12 +75,7 @@ class PostController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Post $post)
     {
         $like = new Like;
@@ -101,12 +83,7 @@ class PostController extends Controller
         return view('post.show')->with(['like_model'=>$like, 'post'=>$post]);//
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit(Post $post) {
         $user = Auth::user();
         $this->authorize('update', $post);
@@ -114,7 +91,7 @@ class PostController extends Controller
         $value = "";
         foreach ($post->tags as $tag) {
             $text = "#".$tag->name;
-            $value .= $text;
+            $value .= $text;//投稿の編集機能でのハッシュタグの文字列を取得
         }
        
         return view('post.edit')->with(['post'=>$post, "tags"=>$value]);
@@ -122,22 +99,16 @@ class PostController extends Controller
         
     
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function update(PostRequest $request, Post $post)
     {
         $user = Auth::user();
         $this->authorize('update', $post);
         
-        $post->tags()->detach();
         $input = $request['post.body'];
         $post->body = $input;
         $post->save();
+        
+        $post->tags()->detach();
         preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
         $tags = [];
         foreach ($match[1] as $tag) {
@@ -154,12 +125,7 @@ class PostController extends Controller
     
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+    
     
     public function destroy(Post $post)
     {
@@ -171,6 +137,7 @@ class PostController extends Controller
             PostPhoto::query()->where('post_id', '=',$post->id)->delete();
            
         }
+       
         foreach ($post->tags->pluck("id") as $tag) {
                 $post->tags()->detach($tag);   
             }
@@ -183,6 +150,7 @@ class PostController extends Controller
     public function search(Request $request, Post $post)
     {
         $like = new Like;
+        
         if ($request->select == "name") {
             $user = new User;
             $input = $request->input;

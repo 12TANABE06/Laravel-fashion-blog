@@ -14,7 +14,7 @@ class Post extends Model
         'image_path',
         'body'
     ]; //
-    public function getPaginateLimit(int $limit_count = 9)
+    public function getPaginateLimit(int $limit_count = 9)//投稿の一覧表示でのページネーションの設定するメソッド
    {
         return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
    }

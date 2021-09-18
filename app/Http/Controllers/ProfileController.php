@@ -37,7 +37,6 @@ class ProfileController extends Controller
     
     public function myshow()
     {
-        
         $like = new Like;
         $user = Auth::user();
         $profile = $user->profile;
@@ -49,13 +48,14 @@ class ProfileController extends Controller
             'like_model'=>$like]);
         
     }
-     public function create()
+    
+    public function create()
     {
         return view('profile.create');
-        //
+    
     }
      
-     public function store(Profile $profile, ProfileRequest $request)
+    public function store(Profile $profile, ProfileRequest $request)
     {
         $input = $request['profile.body'];
         $profile->user_id = Auth::id();

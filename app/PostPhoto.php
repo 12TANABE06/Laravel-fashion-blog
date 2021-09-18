@@ -10,7 +10,8 @@ class PostPhoto extends Model
     use SoftDeletes;
     protected $fillable = [
         'image_path'
-    ]; ////
+    ]; 
+    
     public function post()
     {
         return $this->belongsTo('App\Post');

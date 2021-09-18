@@ -30,7 +30,7 @@
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right">タグ</label>
                                 <div class="col-6">
-                                    <input type="text" name="tags" class="form-control" placeholder="タグ" value={{old('tags')}}>
+                                    <input type="text" name="tags" class="form-control" placeholder="＃タグ" value={{old('tags')}}>
                                 </div>
                             </div>    
                             
