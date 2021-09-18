@@ -80,57 +80,24 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ーーーーーここからーーーーー
 # アプリ名
 Fashion Blog
+# 概要
+ユーザー認証付きの画像投稿機能を有したSNS型ファッションブログサービス
+# 使用言語
+Laravel6,bootstrap4,PHP(ver.7.3.28),html,css,Javascript
+# 機能
+ユーザー認証機能、Goole APIを用いたGooleアカウントでのユーザー認証機能、投稿の一覧表示、投稿の詳細表示、最大２枚の画像とハッシュタグとコメントを投稿できる投稿（画像は最低１枚は必須）と編集（ハッシュタグとコメントのみ）と削除機能、投稿の検索機能（ユーザー名、ハッシュタグ、コメントから検索）、非同期のいいね機能といいね数によるランキング機能、マイページ機能（プロフィール画像と自己紹介文の投稿と編集と削除機能、自分の投稿と自分がいいねした投稿の一覧表示、ユーザー名の編集機能）
+# 非機能
+画像ファイルの保存のためS3の使用
+# 注力した機能
+今回このWebアプリケーションを作成したきっかけとして普段使用しているアプリにはない画像の複数枚投稿機能を有したもの作成するため、画像の複数枚投稿機能に注力した。
+# 工夫した点
 
-# DEMO
+# 環境構築の手順
 
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
+# デモ
 
-# Features
+# 注意点
 
-"hoge"のセールスポイントや差別化などを説明する
 
-# Requirement
 
-"hoge"を動かすのに必要なライブラリなどを列挙する
 
-* huga 3.5.2
-* hogehuga 1.0.2
-
-# Installation
-
-Requirementで列挙したライブラリなどのインストール方法を説明する
-
-```bash
-pip install huga_package
-```
-
-# Usage
-
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
-
-```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
-```
-
-# Note
-
-注意点などがあれば書く
-
-# Author
-
-作成情報を列挙する
-
-* 作成者
-* 所属
-* E-mail
-
-# License
-ライセンスを明示する
-
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
-
-社内向けなら社外秘であることを明示してる
-
-"hoge" is Confidential.
