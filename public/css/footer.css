@@ -1,0 +1,15 @@
+.footerFixed{
+    min-height: 100vh; 
+    position: relative;
+    padding-bottom: 60px; 
+    box-sizing: border-box;
+    
+}
+.footerWrap{
+	width:100%;
+}
+footer{
+    width:100%;
+    position: absolute;/* ←絶対位置 */
+    bottom: 0;
+}
