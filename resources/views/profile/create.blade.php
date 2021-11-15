@@ -14,7 +14,7 @@
        
      </head>
      <body>
-        <a href="/" class="btn btn-primary">戻る</a>
+        
         <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -39,7 +39,7 @@
                                     <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
                                 </div>
                             </div>
-                            <input type="submit" class="btn btn-primary" value='保存'>
+                            <input type="submit" class="btn btn-light" value='保存'>
                         </form>
                     </div>
                     

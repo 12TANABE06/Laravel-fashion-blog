@@ -15,7 +15,6 @@
      </head>
      <body>
         
-    <a href="/" class="btn btn-primary">戻る</a>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -25,10 +24,9 @@
                             <form action='/profiles/{{$profile->id}}/delete' method="POST" style="display:inline" id="button">
                                 @csrf
                                 @method('DELETE')
-                                <input type="submit" onclick="return delet()" class="btn btn-primary" value="プロフィール画像の削除"/>
+                                <input type="submit" onclick="return delet()" class="btn btn-light" value="プロフィール画像の削除"/>
                             </form>
                             <div class="photo">
-                                <label>プロフィール画像</label>
                                 <img class="card-img-top rounded-circle" alt="First slide" src="{{$profile->image_path}}">
                             </div>
                             <div class="card-body">
@@ -48,9 +46,9 @@
                                             <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
                                         </div>
                                     </div>
-                                    <input type="submit" class="btn btn-primary" value='保存'>
+                                    <input type="submit" class="btn btn-light" value='保存'>
                                 </form>
-                                <br><a href="/" class="btn btn-primary">戻る</a>
+                                <br><a href="/" class="btn btn-light">戻る</a>
                             </div>
                         @else
                             <div class="card-body">
@@ -77,9 +75,9 @@
                                             <p class="body_error" style="color:red">{{$errors->first('profile.body')}}</p>
                                         </div>
                                     </div>
-                                    <input type="submit" class="btn btn-primary" value='保存'>
+                                    <input type="submit" class="btn btn-light" value='保存'>
                                 </form>
-                                <br><a href="/" class="btn btn-primary">戻る</a>
+                                <br><a href="/" class="btn btn-light">戻る</a>
                             </div>
                         @endif
                     </div>

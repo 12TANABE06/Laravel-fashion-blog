@@ -19,7 +19,6 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="back"><a href="/" class="btn btn-primary">戻る</a></div>
                         <div class="card-header"><a href="/profiles/{{$post->user_id}}">{{$post->user->name}}</a></div>
                         @if (count($post->post_photos) == 2)
                             <div class="container"> 
@@ -78,7 +77,7 @@
                                 @if (Auth::check())
                                     @if (Auth::id() == $post->user_id)
                                     <div class="update">
-                                        <a href='/posts/{{$post->id}}/edit' class="btn btn-primary">編集</a>
+                                        <a href='/posts/{{$post->id}}/edit' class="btn btn-light">編集</a>
                                     </div>
                                     @endif
                                 @endif

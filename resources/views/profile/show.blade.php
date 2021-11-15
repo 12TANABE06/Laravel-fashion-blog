@@ -14,7 +14,6 @@
        
     </head>
     <body>
-        <a href="/" class="btn btn-primary">戻る</a></div>
         @if ($profile==Null)
         <div class="container">
             <div class="row justify-content-center">
@@ -111,7 +110,7 @@
                                         </p>
                                     @endif
                                 </div>
-                                <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
+                                <a href="/posts/{{$post->id}}" class="btn btn-light">詳細</a>
                             </div>
                             <div class="card-footer">最終更新{{$post->updated_at}}</div>
                     

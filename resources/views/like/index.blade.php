@@ -18,7 +18,6 @@
         <div class='paginate d-flex justify-content-center'>
             {{$posts->links()}}
         </div>
-        <a href='/profiles/mypage' class="btn btn-primary">戻る</a>
         <div class="posts">
             <h2 style="text-align:center">いいねした投稿</h2>
             <div class="container-fluid">
@@ -61,7 +60,7 @@
                                         </p>
                                     @endif
                                 </div>
-                                <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
+                                <a href="/posts/{{$post->id}}" class="btn btn-light">詳細</a>
                             </div>
                             <div class="card-footer">最終更新{{$post->updated_at}}</div>
                         

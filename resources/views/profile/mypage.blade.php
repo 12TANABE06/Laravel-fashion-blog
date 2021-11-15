@@ -16,7 +16,7 @@
        
     </head>
     <body>
-        <a href="/" class="btn btn-primary">戻る</a></div>
+        
         @if ($profile==Null)
             <div class="container">
                 <div class="row justify-content-center">
@@ -25,9 +25,9 @@
                             <div class="card-header">{{$user->name}}</div>
                              <div class="card-body">
                                 <h1>プロフィールが作成されていません</h1>
-                                <a href='/profiles/create' class="btn btn-primary">プロフィール作成</a>
-                                <a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
-                                <a href="/posts/create" class="btn btn-primary">新規投稿作成</a>
+                                <a href='/profiles/create' class="btn btn-light">プロフィール作成</a>
+                                <a href='/likes/{{Auth::id()}}' class="btn btn-light">いいねした投稿</a>
+                                <a href="/posts/create" class="btn btn-light">新規投稿作成</a>
                         </div>
                     </div>
                 </div>
@@ -47,9 +47,9 @@
                                         <div class="body">
                                             <p class="card-text">自己紹介<br>{{$profile->body}}</p>
                                             <div class="update">
-                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-primary">プロフィールの編集</a>
+                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-light">プロフィールの編集</a>
                                             </div>
-                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-light">いいねした投稿</a>
                                         </div>
                                     </div>
                                 </div>
@@ -69,9 +69,9 @@
                                         <div class="body">
                                             <p class="card-text">自己紹介<br>{{$profile->body}}</p>
                                             <div class="update">
-                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-primary">プロフィールの編集</a>
+                                                <a href='/profiles/{{$profile->id}}/edit' class="btn btn-light">プロフィールの編集</a>
                                             </div>
-                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-primary">いいねした投稿</a>
+                                            <br><a href='/likes/{{Auth::id()}}' class="btn btn-light">いいねした投稿</a>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                                         </p>
                                     @endif
                                 </div>
-                                <a href="/posts/{{$post->id}}" class="btn btn-primary">詳細</a>
+                                <a href="/posts/{{$post->id}}" class="btn btn-light">詳細</a>
                             </div>
                             <div class="card-footer">最終更新{{$post->updated_at}}</div>
                             

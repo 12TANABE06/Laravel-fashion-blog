@@ -11,12 +11,16 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/like.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    
 
     <!-- Styles -->
+    <link rel="preload" href="{{asset("image/5159178_m.jpg")}}" as="image">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/index.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/footer.css')}}" rel="stylesheet" type="text/css">
@@ -36,8 +40,27 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-
+                            <li class="nav-item">
+                                <li><a class="nav-link" href="/">HOME</a></li>
+                                <li><a class="nav-link" href="/profiles/mypage">マイページ</a></li>
+                                <li><a class="nav-link" href="/posts/create">新規投稿作成</a></li>
+                                <li><a class="nav-link"href="/posts/rank">ランキング</a></li>
+                            </li>
                         </ul>
+                        <form class="form-inline" class="mr-sm-1" action="/search" method="GET">
+                            @csrf
+                            <div class="title">
+                                <div class="form-group">
+                                    <select name="select" class="form-control">
+                                        <option value="name">ユーザー名</option>
+                                        <option value="tag">タグ</option>
+                                        <option value="body">本文</option>
+                                    </select>
+                                </div>
+                                <input name="input" class="form-control mr-sm-1" type="text" placeholder="キーワードを入力"/>
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
