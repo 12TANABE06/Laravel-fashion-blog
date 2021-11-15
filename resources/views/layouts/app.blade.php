@@ -19,7 +19,7 @@
     
 
     <!-- Styles -->
-    <link rel="preload" href="{{asset("image/5159178_m.jpg")}}" as="image">
+    <link rel="preload" href="{{asset("storage/image/5159178_m.jpg")}}" as="image">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/index.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/footer.css')}}" rel="stylesheet" type="text/css">
