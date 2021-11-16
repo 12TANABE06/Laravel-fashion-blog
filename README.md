@@ -1,4 +1,4 @@
-![スクリーンショット (133)](https://user-images.githubusercontent.com/82688696/141913829-5930d810-2c3b-4fd8-b53f-e49333142068.png)
+![スクリーンショット (134)](https://user-images.githubusercontent.com/82688696/141949400-ae33c657-c23d-453a-a4f4-0e34fd67ec0e.png)
 
 # アプリ名
 Fashion Blog
