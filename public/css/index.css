@@ -24,3 +24,8 @@ body {
 .card-body{
     z-index: 10;
 }
+
+.img{
+    width: 220;
+    height: 200;
+}

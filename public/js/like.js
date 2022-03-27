@@ -11002,8 +11002,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
       headers: {
         'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_0___default()('meta[name="csrf-token"]').attr('content')
       },
-      url: "/likes",
       type: 'POST',
+      url: "/likes",
       data: {
         'post_id': likePostId
       }

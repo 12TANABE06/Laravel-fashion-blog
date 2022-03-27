@@ -3,23 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-
 use App\PostPhoto;
-
 use App\User;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Storage;
-
 use App\Http\Requests\PostRequest;
-
 use App\Tag;
-
 use App\Like;
-
 use Intervention\Image\Facades\Image;
 
 
@@ -50,6 +41,8 @@ class PostController extends Controller
         $post->body = $input;
         $post->save();
         
+        
+        
         foreach ($request->file('files') as $file) {
             $post_photo = new PostPhoto;
             $path = Storage::disk('s3')->putFile('posts', $file["photo"], 'public');
@@ -75,29 +68,26 @@ class PostController extends Controller
         
     }
 
-    
     public function show(Post $post)
     {
         $like = new Like;
         
-        return view('post.show')->with(['like_model'=>$like, 'post'=>$post]);//
+        return view('post.show')->with(['like_model'=>$like, 'post'=>$post]);
     }
 
-   
-    public function edit(Post $post) {
+    public function edit(Post $post) 
+    {
         $user = Auth::user();
         $this->authorize('update', $post);
     
         $value = "";
         foreach ($post->tags as $tag) {
             $text = "#".$tag->name;
-            $value .= $text;//投稿の編集機能でのハッシュタグの文字列を取得
+            $value .= $text;
         }
        
         return view('post.edit')->with(['post'=>$post, "tags"=>$value]);
     }
-        
-    
 
     public function update(PostRequest $request, Post $post)
     {
@@ -125,8 +115,6 @@ class PostController extends Controller
     
     }
 
-    
-    
     public function destroy(Post $post)
     {
         $user = Auth::user();
