@@ -3,20 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
-
 use App\Post;
-
 use App\Like;
-
 use App\User;
-
 use App\Http\Requests\ProfileRequest;
-
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Illuminate\Http\File;
 
 
 
@@ -63,8 +58,18 @@ class ProfileController extends Controller
          if($request['profile.image_path'] == null) {
              $profile->save();
         }else{
-            $path = Storage::disk('s3')->putFile('profiles', $request["profile.image_path"], 'public');
-            $profile->image_path = Storage::disk('s3')->url($path);
+            $file_path_image = '/thumbnail';
+            $file_path = storage_path('app'.$file_path_image);
+            
+            $img = Image::make($request["profile.image_path"]);
+            $img->limitColors(null);
+            
+            $img->encode('webp');
+            $img->save($file_path);
+            
+            $upload_info = Storage::disk('s3')->putFile('profiles',new File($file_path), 'public');
+            $path = Storage::disk('s3')->url($upload_info);
+            $profile->image_path = $path;
             $profile->save();
             }
             
@@ -96,9 +101,20 @@ class ProfileController extends Controller
             $profile->body = $input_body;
            
             if(file_exists($request['profile.image_path'])) {
-                $path = Storage::disk('s3')->putFile('profiles', $request["profile.image_path"], 'public');
-                $profile->image_path = Storage::disk('s3')->url($path);
+                $file_path_image = '/thumbnail';
+                $file_path = storage_path('app'.$file_path_image);
+                 
+                $img = Image::make($request["profile.image_path"]);
+                $img->limitColors(null);
+                
+                $img->encode('webp');
+                $img->save($file_path);
+                
+                $upload_info = Storage::disk('s3')->putFile('profiles',new File($file_path), 'public');
+                $path = Storage::disk('s3')->url($upload_info);
+                $profile->image_path = $path;
                 $profile->save();
+                
             }else{
                 $profile->save();
                 }
@@ -119,7 +135,7 @@ class ProfileController extends Controller
             $profile->image_path = null;
             $profile->save();
         
-            return redirect('/profiles/'.$profile->id.'/edit');
+            return redirect('/profiles/mypage');
         }else{
             return redirect('/');
         }

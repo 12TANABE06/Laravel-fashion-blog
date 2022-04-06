@@ -12,6 +12,7 @@ use App\Http\Requests\PostRequest;
 use App\Tag;
 use App\Like;
 use Intervention\Image\Facades\Image;
+use Illuminate\Http\File;
 
 
 
@@ -45,12 +46,26 @@ class PostController extends Controller
         
         foreach ($request->file('files') as $file) {
             $post_photo = new PostPhoto;
-            $path = Storage::disk('s3')->putFile('posts', $file["photo"], 'public');
-            $post_photo->image_path = Storage::disk('s3')->url($path);
+            $file_path_image = '/thumbnail';
+            $file_path = storage_path('app'.$file_path_image);
+            
+            $img = Image::make($file["photo"]);
+            $img->limitColors(null);
+            
+            $img->encode('webp');
+            $img->save($file_path);
+            
+            $upload_info = Storage::disk('s3')->putFile('posts',new File($file_path), 'public');
+            $path = Storage::disk('s3')->url($upload_info);
+            
+             
             $post_photo->post_id = $post->id;
+            $post_photo->image_path = $path;
             $post_photo->save();
-        
+           
+            Storage::disk('local')->delete($file_path_image); 
         }
+        
         
         preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
         $tags = [];
